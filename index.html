@@ -258,27 +258,47 @@
   .bearing-card p{ font-size:0.92rem; line-height:1.55; color:var(--cloud); margin:0; }
   .bearing-card p em{ color:var(--cloud-dim); font-style:normal; }
 
-  /* ================= MEDIA PLACEHOLDER ================= */
-  .media{
-    position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
+  /* ================= MEDIA 适配与图片空间预留 ================= */
+  .media {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     background:
       repeating-linear-gradient(135deg, rgba(201,162,78,0.07) 0 10px, transparent 10px 20px),
       var(--navy-2);
-    border:1px dashed rgba(201,162,78,0.55);
-    color:var(--brass-light);
-    aspect-ratio:4/3; width:100%; text-align:center; padding:20px;
+    border: 1px dashed rgba(201,162,78,0.55);
+    color: var(--brass-light);
+    aspect-ratio: 4 / 3;
+    width: 100%;
+    text-align: center;
+    padding: 0;           /* 清除原本占位符框内内边距 */
+    overflow: hidden;      /* 关键：防止真实图片溢出导致布局错乱 */
+    border-radius: 2px;
   }
-  .section--parchment .media, .section--parchment-2 .media{
+
+  .section--parchment .media, .section--parchment-2 .media {
     background:
       repeating-linear-gradient(135deg, rgba(19,27,46,0.05) 0 10px, transparent 10px 20px),
       var(--parchment-2);
-    border-color:rgba(19,27,46,0.28);
-    color:var(--ink-soft);
+    border-color: rgba(19,27,46,0.28);
+    color: var(--ink-soft);
   }
-  .media svg{ width:26px; height:26px; opacity:0.85; }
-  .media span{ font-size:0.72rem; letter-spacing:0.06em; line-height:1.5; max-width:22ch; }
-  .media--wide{ aspect-ratio:16/10; }
-  .media--tall{ aspect-ratio:3/2; }
+
+  /* 图片统一格式：充满容器 + 自动裁剪防变形 */
+  .media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .media svg { width: 26px; height: 26px; opacity: 0.85; }
+  .media span { font-size: 0.72rem; letter-spacing: 0.06em; line-height: 1.5; max-width: 22ch; }
+  .media--wide { aspect-ratio: 16 / 10; }
+  .media--tall { aspect-ratio: 3 / 2; }
 
   /* ================= FEATURED STORY ================= */
   .featured{ display:grid; grid-template-columns:1.05fr 0.95fr; gap:52px; align-items:center; }
@@ -513,66 +533,69 @@
 
     <div class="story-grid reveal">
       <!-- 卡片模板 ×6 — 复制整个 <article class="story-card">…</article> 即可新增报道 -->
-  <article class="story-card">
-      <div class="media">
-        <img src="bird.jpg" alt="Victoria Confirms First H5N1 Bird Flu Case" style="width:100%; height:100%; object-fit:cover;">
-      </div>
-      <span class="tag tag--n"><i><span>N</span></i>Community</span>
-      <h4>Victoria Confirms First H5N1 Bird Flu Case in Wildlife</h4>
-      <p>Health authorities have increased biosecurity measures after Victoria confirmed its first H5N1 bird flu case in wild animals.</p>
-      <p class="meta">22th July, 2026 · Jerry Zhang</p>
-    </article>
+  <div class="story-grid">
 
-    <article class="story-card">
-      <div class="media">
-        <img src="buildingcoco.jpg" alt="CoCo Ichibanya to Enter Australia" style="width:100%; height:100%; object-fit:cover;">
-      </div>
-      <span class="tag tag--e"><i><span>E</span></i>Business</span>
-      <h4>Japanese Curry Chain CoCo Ichibanya to Enter Australia</h4>
-      <p>Global restaurant brand CoCo Ichibanya will open its first Australian location in Melbourne’s Queen Victoria Market precinct later this year.</p>
-      <p class="meta">26th July, 2026 · Camelo Antoneli</p>
-    </article>
+        <article class="story-card">
+          <div class="media">
+            <img src="bird.jpg" alt="Victoria Confirms First H5N1 Bird Flu Case">
+          </div>
+          <span class="tag tag--n"><i><span>N</span></i>Community</span>
+          <h4>Victoria Confirms First H5N1 Bird Flu Case in Wildlife</h4>
+          <p>Health authorities have increased biosecurity measures after Victoria confirmed its first H5N1 bird flu case in wild animals.</p>
+          <p class="meta">22th July, 2026 · Jerry Zhang</p>
+        </article>
 
-    <article class="story-card">
-      <div class="media">
-        <img src="premier.jpg" alt="Victoria Premier Reform Agenda" style="width:100%; height:100%; object-fit:cover;">
-      </div>
-      <span class="tag tag--s"><i><span>S</span></i>Council</span>
-      <h4>Victoria’s New Premier Announces Government Reform Agenda</h4>
-      <p>New Victorian Premier Ben Carroll has pledged major reforms, including a review of key government policies and a royal commission into the construction sector.</p>
-      <p class="meta">30th July, 2026 · ABC</p>
-    </article>
+        <article class="story-card">
+          <div class="media">
+            <img src="buildingcoco.jpg" alt="Japanese Curry Chain CoCo Ichibanya">
+          </div>
+          <span class="tag tag--e"><i><span>E</span></i>Business</span>
+          <h4>Japanese Curry Chain CoCo Ichibanya to Enter Australia</h4>
+          <p>Global restaurant brand CoCo Ichibanya will open its first Australian location in Melbourne’s Queen Victoria Market precinct later this year.</p>
+          <p class="meta">26th July, 2026 · Camelo Antoneli</p>
+        </article>
 
-    <article class="story-card">
-      <div class="media">
-        <img src="petrol.jpg" alt="Petrol Prices Rise" style="width:100%; height:100%; object-fit:cover;">
-      </div>
-      <span class="tag tag--w"><i><span>W</span></i>Life</span>
-      <h4>Petrol Prices Rise Above $2 Across Parts of Australia</h4>
-      <p>Drivers are seeing higher fuel prices as global oil costs continue to influence Australian petrol markets.</p>
-      <p class="meta">25th July, 2026 · 7 News</p>
-    </article>
+        <article class="story-card">
+          <div class="media">
+            <img src="Premier.jpg" alt="Victoria Premier Reform Agenda">
+          </div>
+          <span class="tag tag--s"><i><span>S</span></i>Council</span>
+          <h4>Victoria’s New Premier Announces Government Reform Agenda</h4>
+          <p>New Victorian Premier Ben Carroll has pledged major reforms, including a review of key government policies and a royal commission into the construction sector.</p>
+          <p class="meta">30th July, 2026 · ABC</p>
+        </article>
 
-    <article class="story-card">
-      <div class="media">
-        <img src="cat.jpg" alt="No cats outdoor in the night" style="width:100%; height:100%; object-fit:cover;">
-      </div>
-      <span class="tag tag--n"><i><span>N</span></i>Community</span>
-      <h4>No cats outdoor in the night</h4>
-      <p>Boroondara Council has voted to introduce a sunset-to-sunrise cat curfew, requiring pet cats to remain on their owners’ property overnight. The measure aims to protect native wildlife, improve responsible pet ownership, and reduce roaming cat complaints.</p>
-      <p class="meta">22th July, 2026 · Stephen Isaka</p>
-    </article>
+        <article class="story-card">
+          <div class="media">
+            <img src="petrol.jpg" alt="Petrol Prices Rise">
+          </div>
+          <span class="tag tag--w"><i><span>W</span></i>Life</span>
+          <h4>Petrol Prices Rise Above $2 Across Parts of Australia</h4>
+          <p>Drivers are seeing higher fuel prices as global oil costs continue to influence Australian petrol markets.</p>
+          <p class="meta">25th July, 2026 · 7 News</p>
+        </article>
 
-    <article class="story-card">
-      <div class="media">
-        <img src="surreyhills.jpg" alt="Real Estate in Surrey Hills" style="width:100%; height:100%; object-fit:cover;">
-      </div>
-      <span class="tag tag--e"><i><span>E</span></i>Business</span>
-      <h4>Real Estate in Surrey Hills</h4>
-      <p>A century-old medical hub on Union Road has sold, marking recent commercial property shifts in the local area.</p>
-      <p class="meta">11th July, 2026 · RT James</p>
-    </article>
+        <article class="story-card">
+          <div class="media">
+            <img src="cat.jpg" alt="No cats outdoor in the night">
+          </div>
+          <span class="tag tag--n"><i><span>N</span></i>Community</span>
+          <h4>No cats outdoor in the night</h4>
+          <p>Boroondara Council has voted to introduce a sunset-to-sunrise cat curfew, requiring pet cats to remain on their owners’ property overnight. The measure aims to protect native wildlife, improve responsible pet ownership, and reduce roaming cat complaints.</p>
+          <p class="meta">22th July, 2026 · Stephen Isaka</p>
+        </article>
 
+        <article class="story-card">
+          <div class="media">
+            <img src="surreyhills.jpg" alt="Real Estate in Surrey Hills">
+          </div>
+          <span class="tag tag--e"><i><span>E</span></i>Business</span>
+          <h4>Real Estate in Surrey Hills</h4>
+          <p>A century-old medical hub on Union Road has sold, marking recent commercial property shifts in the local area.</p>
+          <p class="meta">11th July, 2026 · RT James</p>
+        </article>
+
+      </div>
 <!-- ================= FOUR BEARINGS EXPLAINER ================= -->
 <section class="section--parchment" id="beats">
   <div class="container">

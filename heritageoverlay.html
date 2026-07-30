@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Article Title — Surrey Hills Compass</title>
+<title>Proposed Heritage Overlays in Balwyn North and Surrey Hills — Surrey Hills Compass</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
   :root {
-    /* 核心色彩 (沿用你的设计) */
+    /* 核心色彩 (与 index.html 完全一致) */
     --navy:        #0C1733;
     --navy-2:      #142544;
     --navy-line:   rgba(201,162,78,0.18);
@@ -23,98 +23,116 @@
     --cloud:       #AEB8CD;
     --white:       #FDFDF9;
 
+    --dir-n: #C9A24E; /* Community */
+
     /* 字体 */
     --font-display: 'Cormorant Garamond', 'Songti SC', serif;
     --font-body: 'Inter', -apple-system, 'PingFang SC', 'Segoe UI', sans-serif;
 
     --container: 1180px;
-    --article-width: 680px; /* 专为长文阅读设计的宽度 */
+    --article-width: 680px; /* 专为长文阅读设计的排版宽度 */
     --edge: clamp(20px, 5vw, 64px);
   }
 
-  *,*::before,*::after { box-sizing:border-box; }
+  *, *::before, *::after { box-sizing: border-box; }
+  
   body {
-    margin:0;
-    background:var(--parchment);
-    color:var(--ink);
-    font-family:var(--font-body);
-    -webkit-font-smoothing:antialiased;
+    margin: 0;
+    background: var(--parchment);
+    color: var(--ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
   }
-  img { max-width:100%; display:block; }
-  a { color:inherit; text-decoration:none; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
 
-  /* ================= 导航栏 (带返回主页按钮) ================= */
+  /* ================= 导航栏 (与首页同步) ================= */
   .site-header {
-    position:sticky; top:0; z-index:200;
-    background:var(--navy);
-    border-bottom:1px solid var(--navy-line);
+    position: sticky; top: 0; z-index: 200;
+    background: var(--navy);
+    border-bottom: 1px solid var(--navy-line);
   }
   .site-header .container {
-    max-width:var(--container); margin:0 auto; padding:0 var(--edge);
-    display:flex; align-items:center; justify-content:space-between;
-    height:76px;
+    max-width: var(--container); margin: 0 auto; padding: 0 var(--edge);
+    display: flex; align-items: center; justify-content: space-between;
+    height: 76px;
   }
   
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-word { display: flex; flex-direction: column; line-height: 1; }
+  .brand-word b {
+    font-family: var(--font-display); color: var(--white);
+    font-size: 1.18rem; font-weight: 600; letter-spacing: 0.03em;
+  }
+  .brand-word span {
+    font-size: 0.6rem; letter-spacing: 0.24em; color: var(--brass-light);
+    text-transform: uppercase; margin-top: 3px; font-weight: 600;
+  }
+
   .back-link {
-    display:inline-flex; align-items:center; gap:8px;
-    color:var(--brass-light); font-size:0.9rem; font-weight:500;
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--cloud); font-size: 0.85rem; font-weight: 600;
     transition: color 0.2s ease, transform 0.2s ease;
   }
   .back-link:hover {
-    color:var(--white);
-    transform: translateX(-4px);
+    color: var(--white);
+    transform: translateX(-3px);
   }
 
-  .brand-word b {
-    font-family:var(--font-display); color:var(--white);
-    font-size:1.18rem; font-weight:600; letter-spacing:0.03em;
+  /* ================= 分类标签 ================= */
+  .tag {
+    display: inline-flex; align-items: center; gap: 7px; font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 11px 5px 9px; border-radius: 99px;
+    border: 1px solid currentColor;
   }
+  .tag i {
+    width: 16px; height: 16px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+    font-style: normal; font-family: var(--font-display); font-weight: 700; font-size: 0.66rem;
+    background: currentColor;
+  }
+  .tag i span { color: var(--navy); }
+  .tag--n { color: var(--dir-n); }
 
   /* ================= 文章头部 ================= */
   .article-header {
-    max-width:var(--article-width);
+    max-width: var(--article-width);
     margin: clamp(48px, 8vw, 80px) auto 40px;
     padding: 0 var(--edge);
     text-align: center;
   }
-  .category-tag {
-    display:inline-block; font-size:0.75rem; font-weight:700;
-    letter-spacing:0.14em; text-transform:uppercase; 
-    color:var(--brass); margin-bottom: 20px;
-  }
   .article-title {
-    font-family:var(--font-display); font-weight:600; 
-    font-size:clamp(2rem, 4vw + 1rem, 3.2rem);
-    line-height:1.15; margin:0 0 24px;
+    font-family: var(--font-display); font-weight: 600; 
+    font-size: clamp(2rem, 4vw + 1rem, 3.2rem);
+    line-height: 1.15; margin: 20px 0 24px;
   }
   .article-meta {
-    font-size:0.9rem; color:var(--ink-soft);
+    font-size: 0.9rem; color: var(--ink-soft);
     display: flex; justify-content: center; gap: 16px;
     align-items: center;
   }
   .article-meta span { display: inline-flex; align-items: center; gap: 6px; }
 
-  /* ================= 头图占位空间 ================= */
+  /* ================= 头图展示区 (纯净无边框) ================= */
   .article-hero {
-    max-width: 960px; /* 图片可以比文字略宽一点，增加视觉冲击力 */
+    max-width: 960px;
     margin: 0 auto 48px;
     padding: 0 var(--edge);
   }
-  .media-placeholder {
-    width: 100%; aspect-ratio: 16/9;
-    background: var(--parchment-2);
-    border: 1px dashed rgba(19,27,46,0.28);
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    color: var(--ink-soft); font-size: 0.9rem; letter-spacing: 0.05em;
+  .article-photo {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border-radius: 2px;
+    box-shadow: 0 4px 20px rgba(12, 23, 51, 0.06);
   }
   .image-caption {
     text-align: center; font-size: 0.85rem; color: var(--ink-soft);
-    margin-top: 12px; font-style: italic;
+    margin-top: 14px; font-style: italic;
   }
 
   /* ================= 正文排版 ================= */
   .article-body {
-    max-width:var(--article-width);
+    max-width: var(--article-width);
     margin: 0 auto clamp(60px, 10vw, 100px);
     padding: 0 var(--edge);
     font-size: 1.1rem;
@@ -124,20 +142,20 @@
   
   .article-body p { margin: 0 0 1.5em; }
   
-  /* 首字下沉效果 (可选，突出古典报纸感) */
+  /* 首字下沉效果 */
   .article-body > p:first-of-type::first-letter {
     font-family: var(--font-display);
     float: left; font-size: 4.5rem; line-height: 0.8;
     margin: 0.1em 0.1em 0 0; color: var(--brass);
   }
 
-  /* 小标题样式 */
+  /* 小标题 */
   .article-body h2 {
     font-family: var(--font-display); font-size: 1.8rem;
-    margin: 2em 0 1em; line-height: 1.3;
+    margin: 2em 0 1em; line-height: 1.3; color: var(--navy);
   }
 
-  /* 引用块样式 */
+  /* 引用块 */
   .article-body blockquote {
     margin: 2.5em 0; padding: 0 0 0 24px;
     border-left: 3px solid var(--brass);
@@ -147,17 +165,17 @@
 
   /* ================= 文章底部操作区 ================= */
   .article-footer {
-    max-width:var(--article-width);
+    max-width: var(--article-width);
     margin: 0 auto 80px;
     padding: 40px var(--edge) 0;
     border-top: 1px solid rgba(19,27,46,0.15);
     display: flex; justify-content: center;
   }
   .btn-outline {
-    display:inline-flex; align-items:center; gap:8px;
+    display: inline-flex; align-items: center; gap: 8px;
     padding: 12px 28px; border: 1px solid var(--navy);
     font-weight: 600; font-size: 0.95rem; border-radius: 2px;
-    transition: all 0.2s ease; cursor: pointer;
+    transition: all 0.2s ease; cursor: pointer; background: transparent;
   }
   .btn-outline:hover {
     background: var(--navy); color: var(--white);
@@ -168,56 +186,50 @@
 
 <header class="site-header">
   <div class="container">
-    <a href="index.html" class="back-link">
-      <span>←</span> Back to Home
+    <a href="index.html" class="brand">
+      <div class="brand-word">
+        <b>Surrey Hills</b>
+        <span>COMPASS</span>
+      </div>
     </a>
-    <div class="brand-word">
-      <b>Surrey Hills Compass</b>
-    </div>
-    <div style="width: 100px;"></div> </div>
+    
+    <a href="index.html" class="back-link">
+      ← Back to Home
+    </a>
+  </div>
 </header>
 
 <main>
   <article>
     <header class="article-header">
-      <span class="category-tag">N · Community</span>
-      <h1 class="article-title">Proposed Heritage Overlays in Balwyn North and Surrey Hills
-</h1>
+      <span class="tag tag--n"><i><span>N</span></i> Community</span>
+      <h1 class="article-title">Proposed Heritage Overlays in Balwyn North and Surrey Hills</h1>
       <div class="article-meta">
         <span>By <b>Sonny Williamson</b></span>
         <span>•</span>
-        <span><time datetime="2026-07-30">[July 30, 2026]</time></span>
+        <span><time datetime="2026-07-30">July 30, 2026</time></span>
       </div>
     </header>
 
     <div class="article-hero">
-      <div class="media-placeholder">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:32px; height:32px; margin-bottom:12px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-        <img class="article-photo" src="Gemini_Generated_Image_mkfzq8mkfzq8mkfz.png" alt="description">
-      </div>
-      <div class="image-caption">Heat discussion about this news in the neighborhood.</div>
+      <img class="article-photo" src="Gemini_Generated_Image_mkfzq8mkfzq8mkfz.png" alt="Proposed Heritage Overlays in Balwyn North and Surrey Hills">
+      <div class="image-caption">Heated discussion about this proposal across the neighborhood.</div>
     </div>
 
     <div class="article-body">
-      <p>A new local heritage proposal in the leafy suburb of Surrey Hills has ignited intense discussion among residents, property owners, and urban planning experts.
-</p>
+      <p>A new local heritage proposal in the leafy suburb of Surrey Hills has ignited intense discussion among residents, property owners, and urban planning experts.</p>
       
-      <p>Under recent planning scheme amendments pushed by the local council (City of Boroondara), several additional residential pockets and commercial strips across Surrey Hills featuring Victorian, Edwardian, and California Bungalow architecture are being considered for inclusion in the formal Heritage Overlay (HO).
-</p>
+      <p>Under recent planning scheme amendments pushed by the local council (City of Boroondara), several additional residential pockets and commercial strips across Surrey Hills featuring Victorian, Edwardian, and California Bungalow architecture are being considered for inclusion in the formal Heritage Overlay (HO).</p>
 
-      <h2>The Core of the Proposal: Safeguarding Nearly 180 Years of Architecture
-</h2>
+      <h2>The Core of the Proposal: Safeguarding Nearly 180 Years of Architecture</h2>
 
-      <p>Surrey Hills has long been revered for its tree-lined streetscapes and well-preserved historic homes. Council planners argue that expanding heritage protections is vital for maintaining the suburb's character and preventing unsympathetic redevelopments or full demolitions.
-</p>
+      <p>Surrey Hills has long been revered for its tree-lined streetscapes and well-preserved historic homes. Council planners argue that expanding heritage protections is vital for maintaining the suburb's character and preventing unsympathetic redevelopments or full demolitions.</p>
 
       <blockquote>
-        "Surrey Hills derives its charm from its century-old homes and unique neighbourhood feel. If we allow developers to demolish these historic properties unchecked, the suburb loses its identity forever. Heritage overlays ensure we preserve history for future generations." — Sarah M., a local resident of 20 years."
+        "Surrey Hills derives its charm from its century-old homes and unique neighbourhood feel. If we allow developers to demolish these historic properties unchecked, the suburb loses its identity forever. Heritage overlays ensure we preserve history for future generations." — Sarah M., a local resident of 20 years.
       </blockquote>
 
-      <p>As the Victorian state government continues to push for higher-density housing targets near transport hubs, the tension between local council heritage overlays and state-level housing goals remains at an all-time high.
-The Council's public consultation process gives affected landholders and residents the opportunity to submit formal feedback. An independent panel hearing will review all submissions before submitting a final recommendation report to the Minister for Planning.
-</p>
+      <p>As the Victorian state government continues to push for higher-density housing targets near transport hubs, the tension between local council heritage overlays and state-level housing goals remains at an all-time high. The Council's public consultation process gives affected landholders and residents the opportunity to submit formal feedback. An independent panel hearing will review all submissions before submitting a final recommendation report to the Minister for Planning.</p>
     </div>
 
     <div class="article-footer">

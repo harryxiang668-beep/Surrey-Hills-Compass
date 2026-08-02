@@ -1,1 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unsubscribe - Surrey Hills Compass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1c2b3a;
+    --navy-deep:#101b26;
+    --brass:#b08a4e;
+    --brass-light:#d9bd8c;
+    --paper:#faf6f0;
+    --ink:#20262c;
+    --ink-soft:#5f6a72;
+    --line:#e3ded4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+
+  .card{
+    width:100%;
+    max-width:440px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:4px;
+    overflow:hidden;
+    box-shadow:0 24px 60px -20px rgba(61,15,22,0.25);
+  }
+
+  .band{
+    background:linear-gradient(135deg,var(--navy) 0%,var(--navy-deep) 100%);
+    padding:32px 32px 28px;
+    text-align:center;
+    position:relative;
+  }
+  .band::after{
+    content:"";
+    position:absolute;
+    bottom:0;left:0;right:0;
+    height:3px;
+    background:linear-gradient(90deg,transparent,var(--brass-light),transparent);
+  }
+  
+  /* Logo 展示样式 */
+  .logo-slot{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .logo-slot img{
+    max-height:48px; /* 可以根据实际图片大小在此调整高度 */
+    max-width:100%;
+    height:auto;
+    display:block;
+    object-fit:contain;
+  }
+
+  .body{ padding:40px 32px 36px; }
+
+  .step{ display:none; }
+  .step.active{ display:block; }
+
+  h1{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:24px;
+    line-height:1.3;
+    color:var(--navy-deep);
+    margin-bottom:10px;
+  }
+  p.lede{
+    font-size:14.5px;
+    line-height:1.6;
+    color:var(--ink-soft);
+    margin-bottom:26px;
+  }
+
+  label{
+    display:block;
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:0.03em;
+    color:var(--ink);
+    margin-bottom:8px;
+  }
+  input[type="email"]{
+    width:100%;
+    padding:13px 14px;
+    font-family:'Inter',sans-serif;
+    font-size:15px;
+    border:1px solid var(--line);
+    border-radius:3px;
+    background:var(--paper);
+    color:var(--ink);
+    outline:none;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  input[type="email"]:focus{
+    border-color:var(--brass);
+    box-shadow:0 0 0 3px rgba(176,138,78,0.18);
+  }
+  input[type="email"].error{
+    border-color:#a13d3d;
+  }
+  .field-error{
+    display:none;
+    font-size:12.5px;
+    color:#a13d3d;
+    margin-top:7px;
+  }
+  .field-error.show{ display:block; }
+
+  .field{ margin-bottom:22px; }
+
+  button{
+    width:100%;
+    padding:14px 18px;
+    font-family:'Inter',sans-serif;
+    font-size:14.5px;
+    font-weight:600;
+    letter-spacing:0.02em;
+    border:none;
+    border-radius:3px;
+    cursor:pointer;
+    transition:background .15s ease, transform .05s ease;
+  }
+  button:active{ transform:translateY(1px); }
+
+  .btn-primary{
+    background:var(--navy);
+    color:#fff;
+  }
+  .btn-primary:hover{ background:var(--navy-deep); }
+  .btn-primary:disabled{
+    background:#c9b8ac;
+    cursor:not-allowed;
+  }
+
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink-soft);
+    border:1px solid var(--line);
+    margin-top:10px;
+  }
+  .btn-ghost:hover{
+    border-color:var(--brass);
+    color:var(--navy-deep);
+  }
+
+  .email-chip{
+    display:inline-block;
+    font-weight:600;
+    color:var(--navy-deep);
+    border-bottom:1px solid var(--brass);
+    word-break:break-all;
+  }
+
+  /* Confirm step */
+  .reasons{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-bottom:26px;
+  }
+  .reason-option{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:11px 13px;
+    border:1px solid var(--line);
+    border-radius:3px;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .reason-option:hover{ border-color:var(--brass-light); background:var(--paper); }
+  .reason-option input{ accent-color:var(--navy); }
+
+  /* Success step */
+  .success-icon{
+    width:52px;height:52px;
+    border-radius:50%;
+    background:var(--paper);
+    border:1px solid var(--brass-light);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:20px;
+  }
+  .success-icon svg{ width:22px;height:22px; }
+
+  .divider{
+    height:1px;
+    background:var(--line);
+    margin:26px 0;
+  }
+
+  .fine-print{
+    font-size:12px;
+    line-height:1.6;
+    color:#9a8c85;
+  }
+  .fine-print a{ color:var(--ink-soft); }
+
+  footer{
+    text-align:center;
+    font-size:11.5px;
+    color:#b3a49d;
+    margin-top:20px;
+    letter-spacing:0.02em;
+  }
+</style>
+</head>
+<body>
+
+<div style="width:100%;max-width:440px;">
+  <div class="card">
+    <div class="band">
+      <div class="logo-slot">
+        <img src="https://surreyhillscompass.vercel.app/logo.png" alt="Surrey Hills Compass">
+      </div>
+    </div>
+
+    <div class="body">
+
+      <div class="step active" id="step-email">
+        <h1>Manage your email preferences</h1>
+        <p class="lede">Enter the email address you'd like to remove, and we'll stop sending you listing updates and market insights from Surrey Hills Compass.</p>
+
+        <form id="unsubForm" novalidate>
+          <div class="field">
+            <label for="emailInput">Email address</label>
+            <input type="email" id="emailInput" placeholder="you@example.com" autocomplete="email" required>
+            <div class="field-error" id="emailError">Enter a valid email address.</div>
+          </div>
+          <button type="submit" class="btn-primary">Continue</button>
+        </form>
+      </div>
+
+      <div class="step" id="step-confirm">
+        <h1>Confirm unsubscribe</h1>
+        <p class="lede">You're about to unsubscribe <span class="email-chip" id="confirmEmail"></span> from Surrey Hills Compass emails, including new listings, open home notices, and quarterly market reports.</p>
+
+        <label style="margin-bottom:12px;">Help us improve (optional)</label>
+        <div class="reasons">
+          <label class="reason-option"><input type="radio" name="reason"> Too many emails</label>
+          <label class="reason-option"><input type="radio" name="reason"> No longer looking to buy or sell</label>
+          <label class="reason-option"><input type="radio" name="reason"> Listings aren't relevant to my area</label>
+          <label class="reason-option"><input type="radio" name="reason"> Other</label>
+        </div>
+
+        <button type="button" class="btn-primary" id="confirmBtn">Unsubscribe me</button>
+        <button type="button" class="btn-ghost" id="backBtn">Go back</button>
+      </div>
+
+      <div class="step" id="step-success">
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#5c1a24" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h1>You're unsubscribed</h1>
+        <p class="lede"><span class="email-chip" id="successEmail"></span> has been removed from our mailing list. It can take up to 48 hours to take full effect.</p>
+
+        <div class="divider"></div>
+        <p class="fine-print">Changed your mind? <a href="#" id="resubLink">Resubscribe</a> at any time. You may still receive emails directly related to a property enquiry or appraisal already in progress.</p>
+      </div>
+
+    </div>
+  </div>
+  <footer>Surrey Hills Compass · Surrey Hills, VIC</footer>
+</div>
+
+<script>
+  // 步骤切换逻辑
+  const stepEmail = document.getElementById('step-email');
+  const stepConfirm = document.getElementById('step-confirm');
+  const stepSuccess = document.getElementById('step-success');
+
+  const emailInput = document.getElementById('emailInput');
+  const emailError = document.getElementById('emailError');
+  const unsubForm = document.getElementById('unsubForm');
+
+  const confirmEmail = document.getElementById('confirmEmail');
+  const successEmail = document.getElementById('successEmail');
+
+  function isValidEmail(value){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }
+
+  function showStep(step){
+    [stepEmail, stepConfirm, stepSuccess].forEach(s => s.classList.remove('active'));
+    step.classList.add('active');
+  }
+
+  unsubForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    const value = emailInput.value.trim();
+    if(!isValidEmail(value)){
+      emailInput.classList.add('error');
+      emailError.classList.add('show');
+      return;
+    }
+    emailInput.classList.remove('error');
+    emailError.classList.remove('show');
+    confirmEmail.textContent = value;
+    successEmail.textContent = value;
+    showStep(stepConfirm);
+  });
+
+  emailInput.addEventListener('input', function(){
+    emailInput.classList.remove('error');
+    emailError.classList.remove('show');
+  });
+
+  document.getElementById('confirmBtn').addEventListener('click', function(){
+    showStep(stepSuccess);
+  });
+
+  document.getElementById('backBtn').addEventListener('click', function(){
+    showStep(stepEmail);
+  });
+
+  document.getElementById('resubLink').addEventListener('click', function(e){
+    e.preventDefault();
+    alert('Resubscribe flow would go here.');
+  });
+</script>
+
+</body>
+</html>
 

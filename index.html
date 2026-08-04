@@ -101,25 +101,25 @@
 
   .main-nav{ display:flex; align-items:center; gap:36px; }
   .main-nav ul{ list-style:none; display:flex; gap:28px; margin:0; padding:0; }
-  .main-nav a{
+  .main-nav ul a{
     font-size:0.82rem; font-weight:600; letter-spacing:0.03em; color:var(--cloud);
     display:flex; align-items:baseline; gap:6px;
     padding:6px 0; border-bottom:1px solid transparent;
     transition:color .2s ease, border-color .2s ease;
   }
-  .main-nav a b{ color:var(--brass); font-family:var(--font-display); font-size:0.95rem; }
-  .main-nav a:hover{ color:var(--white); border-color:var(--brass); }
+  .main-nav ul a b{ color:var(--brass); font-family:var(--font-display); font-size:0.95rem; }
+  .main-nav ul a:hover{ color:var(--white); border-color:var(--brass); }
 
   .btn{
     display:inline-flex; align-items:center; justify-content:center; gap:8px;
-    font-family:var(--font-body); font-weight:600; font-size:0.85rem;
+    font-family:var(--font-body); font-weight:700; font-size:0.85rem;
     letter-spacing:0.02em; padding:12px 24px; border-radius:2px;
     border:1px solid transparent; cursor:pointer; white-space:nowrap;
     transition:transform .18s ease, background .2s ease, color .2s ease, border-color .2s ease;
   }
   .btn:hover{ transform:translateY(-1px); }
-  .btn--brass{ background:var(--brass); color:var(--navy); }
-  .btn--brass:hover{ background:var(--brass-light); }
+  .btn--brass{ background:var(--brass); color:#0A0F1C; }
+  .btn--brass:hover{ background:var(--brass-light); color:#0A0F1C; }
   .btn--ghost-dark{ border-color:var(--brass); color:var(--brass-light); background:transparent; }
   .btn--ghost-dark:hover{ background:rgba(201,162,78,0.1); }
   .btn--ghost-light{ border-color:var(--navy); color:var(--navy); background:transparent; }
@@ -156,7 +156,7 @@
   .hero .container{ position:relative; z-index:2; }
   .hero-inner{ max-width:660px; }
   .hero .eyebrow{ color:var(--brass-light); }
-  .hero-lockup{ margin:0 0 30px; height:auto; width:min(360px, 62vw); }
+  .hero-lockup{ margin:0 0 26px; height:auto; width:min(480px, 74vw); }
   .hero h1{
     font-family:var(--font-display); font-weight:600; font-style:normal;
     font-size:clamp(2.3rem, 4.4vw + 1rem, 3.6rem);
@@ -358,7 +358,7 @@
     }
     .main-nav.is-open ul{ display:flex; flex-direction:column; gap:22px; }
     .main-nav.is-open .btn{ display:inline-flex; }
-    .main-nav a{ font-size:1.05rem; }
+    .main-nav ul a{ font-size:1.05rem; }
     .featured{ grid-template-columns:1fr; gap:30px; }
     .story-grid{ grid-template-columns:repeat(2,1fr); }
     .voices-grid{ grid-template-columns:1fr; gap:30px; }

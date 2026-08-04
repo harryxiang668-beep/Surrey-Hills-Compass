@@ -738,6 +738,7 @@
 </footer>
 
 <script>
+  // 移动端菜单切换
   const navToggle = document.getElementById('navToggle');
   const mainNav = document.getElementById('mainNav');
   navToggle.addEventListener('click', () => {
@@ -749,6 +750,7 @@
     navToggle.setAttribute('aria-expanded', 'false');
   }));
 
+  // 页面滚动淡入动画 (IntersectionObserver)
   const revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries) => {
@@ -764,51 +766,56 @@
     revealEls.forEach(el => el.classList.add('is-visible'));
   }
 
+  // FormSubmit AJAX 提交逻辑
   function wireForm(formId, successId) {
-  const form = document.getElementById(formId);
-  const success = document.getElementById(successId);
-  if (!form) return;
+    const form = document.getElementById(formId);
+    const success = document.getElementById(successId);
+    if (!form) return;
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const originalBtnText = submitBtn.textContent;
-    
-    // 改变按钮状态
-    submitBtn.textContent = 'Sending...';
-    submitBtn.disabled = true;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.textContent;
+      
+      // 改变按钮状态为加载中
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled = true;
 
-    // 替换为你的邮箱地址
-    const targetEmail = "surreyhillscompass@proton.me"; 
+      const targetEmail = "surreyhillscompass@proton.me"; 
 
-    try {
-      const response = await fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(Object.fromEntries(new FormData(form)))
-      });
+      try {
+        const response = await fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(Object.fromEntries(new FormData(form)))
+        });
 
-      if (response.ok) {
-        success.classList.add('is-visible');
-        form.reset();
-      } else {
-        alert("Submission failed, please try again.");
+        if (response.ok) {
+          success.classList.add('is-visible');
+          form.reset();
+        } else {
+          alert("Submission failed, please try again.");
+        }
+      } catch (error) {
+        alert("Network error, please try again.");
+      } finally {
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
       }
-    } catch (error) {
-      alert("Network error, please try again.");
-    } finally {
-      submitBtn.textContent = originalBtnText;
-      submitBtn.disabled = false;
-    }
-  });
-}
+    });
+  }
 
+  // 绑定两个订阅表单 (必须添加)
+  wireForm('subscribeForm', 'formSuccess');
+  wireForm('subscribeForm2', 'formSuccess2');
 
+  // 自动更新 Footer 年份
   document.getElementById('year').textContent = new Date().getFullYear();
 </script>
+
 
 </body>
 </html>

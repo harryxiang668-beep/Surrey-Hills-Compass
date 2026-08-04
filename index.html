@@ -416,11 +416,13 @@
       <h1 class="reveal">Surrey Hills, delivered to your inbox.</h1>
       <p class="lede reveal">A free weekly guide to the people, places and decisions shaping Surrey Hills — written by neighbours, for neighbours. No pop-ups, no clickbait, just what's actually going on, sorted by direction.</p>
 
-      <form class="subscribe-form reveal" id="subscribeForm">
-        <label for="heroEmail" class="visually-hidden" style="position:absolute;left:-9999px;">Email address</label>
-        <input id="heroEmail" type="email" required placeholder="you@email.com">
-        <button class="btn btn--brass" type="submit">Subscribe</button>
-      </form>
+     <form class="subscribe-form reveal" id="subscribeForm" method="POST">
+  <input type="hidden" name="_subject" value="Surrey Hills Compass - 新订阅用户!">
+  <label for="heroEmail" class="visually-hidden" style="position:absolute;left:-9999px;">Email address</label>
+  <input id="heroEmail" type="email" name="email" required placeholder="you@email.com">
+  <button class="btn btn--brass" type="submit">Subscribe</button>
+</form>
+
       <p class="form-note">Free · Weekly · Local only · <a href="unsubscribe.html" style="text-decoration:underline;">Unsubscribe anytime</a></p>
       <p class="form-success" id="formSuccess">You're in — check your inbox to confirm.</p>
 

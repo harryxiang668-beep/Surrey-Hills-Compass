@@ -46,14 +46,15 @@
     *,*::before,*::after{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
   }
 
-  body{
-    margin:0;
-    background:var(--parchment);
-    color:var(--ink);
-    font-family:var(--font-body);
-    -webkit-font-smoothing:antialiased;
-    text-rendering:optimizeLegibility;
-  }
+body { 
+    margin: 0; 
+    padding: 0; 
+    background-color: #0C1733; /* 建议改成深夜蓝底色，方便视频未加载时顺畅过渡 */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+    -webkit-font-smoothing: antialiased; 
+    color: #2d3748;
+}
+
 
   img{ max-width:100%; display:block; }
   a{ color:inherit; text-decoration:none; }

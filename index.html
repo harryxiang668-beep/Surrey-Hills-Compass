@@ -648,11 +648,11 @@
     <script>
       // ================= SUPABASE 配置 =================
       // 请将下面的 URL 和 Anon Key 替换为你自己的 Supabase 项目凭证
-      const SUPABASE_URL = 'https://jlghdzslvrssorfamvvy.supabase.co/rest/v1/';
+      const SUPABASE_URL = 'https://jlghdzslvrssorfamvvy.supabase.co/rest/v1/articles';
       const SUPABASE_ANON_KEY = 'sb_publishable_Rqd0UuTG8mfHvBn7eJjUjw_a97IBgTp';
       
       let supabaseClient = null;
-      if (SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+      if (SUPABASE_URL !== 'https://jlghdzslvrssorfamvvy.supabase.co/rest/v1/articles') {
         supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
       }
 
@@ -671,7 +671,7 @@
           // 从你的 Supabase 数据库表获取数据（假设表名为 articles，按创建时间或发布日期降序排列）
           // 请根据你的实际表结构调整字段名（例如：title, slug, published_at, category, image_url, author 等）
           const { data, error } = await supabaseClient
-            .from('news')
+            .from('articles')
             .select('*')
             .order('published_at', { ascending: false });
 

@@ -671,7 +671,7 @@
           // 从你的 Supabase 数据库表获取数据（假设表名为 articles，按创建时间或发布日期降序排列）
           // 请根据你的实际表结构调整字段名（例如：title, slug, published_at, category, image_url, author 等）
           const { data, error } = await supabaseClient
-            .from('articles')
+            .from('news')
             .select('*')
             .order('published_at', { ascending: false });
 

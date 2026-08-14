@@ -501,10 +501,14 @@
 
         // 5. 渲染成功
         container.innerHTML = `
+                 const news = data[0];
+
+        // 让网页内容完全由 Supabase 数据库里的字段控制
+        container.innerHTML = `
           <div style="text-align: center; margin-bottom: 40px;">
             <span style="font-size: 0.72rem; font-weight: 600; letter-spacing: 0.22em; color: #8E6E2D; text-transform: uppercase; display: block; margin-bottom: 12px;">Issue #${news.issue_number || '1'} · Community Notice</span>
             <h2 style="font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: clamp(1.8rem, 3vw, 2.6rem); color: #0C1733; margin: 0 0 16px 0; line-height: 1.15;">${news.title}</h2>
-            <p style="color: #4B5468; font-size: 1.02rem; line-height: 1.6; max-width: 52ch; margin: 0 auto;">A quick reminder for Surrey Hills residents: Please ensure your bins are placed out on the nature strip by tonight.</p>
+            <p style="color: #4B5468; font-size: 1.02rem; line-height: 1.6; max-width: 52ch; margin: 0 auto;">${news.description || 'A quick update for Surrey Hills residents regarding local community notices.'}</p>
           </div>
 
           <div style="background: #FDFDF9; border: 1px solid #E3DED4; border-radius: 4px; padding: 32px; max-width: 800px; margin: 0 auto; display: flex; align-items: center; gap: 32px; flex-wrap: wrap;">
@@ -512,13 +516,13 @@
               <div style="width: 36px; height: 46px; background-color: #0E6251; border-radius: 2px 2px 6px 6px; border-top: 8px solid #7CB342;"></div>
             </div>
             <div style="flex: 1; min-width: 260px;">
-              <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; color: #0C1733; margin: 0 0 8px 0; font-weight: 600;">FOGO bin (lime green lid)</h3>
-              <p style="font-size: 0.92rem; color: #131B2E; margin: 0 0 4px 0;">Collected every week on Tuesday</p>
-              <p style="font-size: 0.92rem; color: #131B2E; margin: 0 0 14px 0;">Next collection: <strong style="color: #0C1733;">${news.fogo_date || 'TBD'}</strong></p>
-              <a href="${news.fogo_link || '#'}" target="_blank" style="font-size: 0.88rem; color: #0E6251; text-decoration: underline; font-weight: 600;">Find out what goes in the FOGO bin →</a>
+              <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; color: #0C1733; margin: 0 0 8px 0; font-weight: 600;">${news.subtitle || 'Community Notice'}</h3>
+              <p style="font-size: 0.92rem; color: #131B2E; margin: 0 0 14px 0;">${news.fogo_date ? 'Next collection: <strong style="color: #0C1733;">' + news.fogo_date + '</strong>' : ''}</p>
+              ${news.fogo_link ? '<a href="' + news.fogo_link + '" target="_blank" style="font-size: 0.88rem; color: #0E6251; text-decoration: underline; font-weight: 600;">Learn more →</a>' : ''}
             </div>
           </div>
         `;
+
       } catch (err) {
         // 如果出错，直接把红色的错误原因打印在网页上
         console.error("Supabase 运行异常:", err);

@@ -1,0 +1,81 @@
+https://jlghdzslvrssorfamvvy.supabase.co/rest/v1/
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal - Surrey Hills Compass</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #F6F1E4; color: #131B2E; padding: 40px; }
+    .card { max-width: 600px; margin: 0 auto; background: #FDFDF9; padding: 32px; border: 1px solid #E3DED4; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    h2 { font-family: Georgia, serif; color: #0C1733; margin-top: 0; margin-bottom: 24px; border-bottom: 2px solid #C9A24E; padding-bottom: 12px; }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 14px; color: #0C1733; }
+    input[type="text"], input[type="url"] { width: 100%; padding: 10px 12px; border: 1px solid #CCC; border-radius: 4px; box-sizing: border-box; font-size: 14px; }
+    button { background: #0C1733; color: #FFFFFF; border: none; padding: 12px 20px; font-size: 15px; font-weight: 600; border-radius: 4px; cursor: pointer; width: 100%; }
+    button:hover { background: #1B2B54; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>Publish New Issue</h2>
+    <form id="newsForm">
+      <div class="form-group">
+        <label>Issue Number:</label>
+        <input type="text" id="issueNumber" value="135" required>
+      </div>
+      <div class="form-group">
+        <label>Title:</label>
+        <input type="text" id="title" value="Next Bin Collection Day" required>
+      </div>
+      <div class="form-group">
+        <label>FOGO Next Collection Date:</label>
+        <input type="text" id="fogoDate" value="Tomorrow (Tuesday 11 August)" required>
+      </div>
+      <div class="form-group">
+        <label>Council Guide Link:</label>
+        <input type="url" id="fogoLink" value="https://www.boroondara.vic.gov.au/waste-environment/bins-and-collection-days/what-goes-my-bins/fogo-green-lid-bin" required>
+      </div>
+      <button type="submit" id="submitBtn">Publish to Website</button>
+    </form>
+  </div>
+
+  <script>
+    // 替换为你的 Supabase URL 和 Anon Key
+    const SUPABASE_URL = 'https://jlghdzslvrssorfamvvy.supabase.co/rest/v1/';
+    const SUPABASE_KEY = 'https://jlghdzslvrssorfamvvy.supabase.co/rest/v1/';
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    document.getElementById('newsForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const btn = document.getElementById('submitBtn');
+      btn.textContent = 'Publishing...';
+      btn.disabled = true;
+
+      const issue_number = document.getElementById('issueNumber').value;
+      const title = document.getElementById('title').value;
+      const fogo_date = document.getElementById('fogoDate').value;
+      const fogo_link = document.getElementById('fogoLink').value;
+
+      const { data, error } = await supabase
+        .from('news')
+        .insert([{ issue_number, title, fogo_date, fogo_link }]);
+
+      if (error) {
+        alert('Error: ' + error.message);
+        btn.textContent = 'Publish to Website';
+        btn.disabled = false;
+      } else {
+        alert('Successfully published! Your website is now updated.');
+        document.getElementById('newsForm').reset();
+        btn.textContent = 'Publish to Website';
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

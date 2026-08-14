@@ -46,15 +46,14 @@
     *,*::before,*::after{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
   }
 
-body { 
-    margin: 0; 
-    padding: 0; 
-    background-color: #0C1733; /* 建议改成深夜蓝底色，方便视频未加载时顺畅过渡 */
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-    -webkit-font-smoothing: antialiased; 
-    color: #2d3748;
-}
-
+  body { 
+      margin: 0; 
+      padding: 0; 
+      background-color: #0C1733; 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+      -webkit-font-smoothing: antialiased; 
+      color: #2d3748;
+  }
 
   img{ max-width:100%; display:block; }
   a{ color:inherit; text-decoration:none; }
@@ -81,7 +80,8 @@ body {
   /* ================= HEADER ================= */
   .site-header{
     position:sticky; top:0; z-index:200;
-    background:var(--navy);
+    background:rgba(12, 23, 51, 0.92); /* 微微半透明毛玻璃 */
+    backdrop-filter: blur(8px);
     border-bottom:1px solid var(--navy-line);
   }
   .site-header .container{
@@ -133,9 +133,11 @@ body {
   }
   .nav-toggle span{ width:24px; height:2px; background:var(--brass-light); display:block; }
 
-  /* ================= HERO ================= */
+  /* ================= HERO (修改为半透明透明度以透出视频) ================= */
   .hero{
-    position:relative; background:var(--navy); color:var(--white);
+    position:relative; 
+    background: rgba(12, 23, 51, 0.45); /* 替换为 45% 透明度，透出背景视频 */
+    color:var(--white);
     overflow:hidden;
     padding:clamp(64px,10vw,120px) 0 clamp(56px,8vw,96px);
   }
@@ -188,7 +190,7 @@ body {
 
   /* ================= SECTION SCAFFOLDING ================= */
   section{ padding:clamp(56px,8vw,96px) 0; }
-  .section--navy{ background:var(--navy); color:var(--white); }
+  .section--navy{ background: rgba(12, 23, 51, 0.65); color:var(--white); } /* 调整为半透明透出背景视频 */
   .section--parchment{ background:var(--parchment); }
   .section--parchment-2{ background:var(--parchment-2); }
   .section-head{ max-width:640px; margin:0 0 40px; }
@@ -220,7 +222,7 @@ body {
 
   /* ================= BEARINGS STRIP ================= */
   .bearings-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--navy-line); border:1px solid var(--navy-line); }
-  .bearing-card{ background:var(--navy); padding:26px 24px; }
+  .bearing-card{ background:rgba(12, 23, 51, 0.75); padding:26px 24px; }
   .bearing-card .tag{ margin-bottom:14px; }
   .bearing-card p{ font-size:0.92rem; line-height:1.55; color:var(--cloud); margin:0; }
   .bearing-card p em{ color:var(--cloud-dim); font-style:normal; }
@@ -310,6 +312,7 @@ body {
   .subscribe-band{
     border:1px solid var(--brass); padding:clamp(36px,5vw,56px); text-align:center;
     display:flex; flex-direction:column; align-items:center; gap:20px;
+    background: rgba(12, 23, 51, 0.7);
   }
   .subscribe-band h2{ font-family:var(--font-display); font-weight:600; font-size:clamp(1.7rem,2.6vw+1rem,2.4rem); margin:0; }
   .subscribe-band p{ color:var(--cloud); max-width:46ch; margin:0; line-height:1.6; }
@@ -326,7 +329,7 @@ body {
   .archive-list time{ font-size:0.78rem; color:var(--ink-soft); white-space:nowrap; }
 
   /* ================= FOOTER ================= */
-  .site-footer{ background:var(--navy); color:var(--cloud); padding:64px 0 28px; }
+  .site-footer{ background:rgba(8, 15, 33, 0.95); color:var(--cloud); padding:64px 0 28px; }
   .footer-top{ display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr 1fr; gap:40px; padding-bottom:48px; border-bottom:1px solid var(--navy-line); }
   .footer-brand img{ height:44px; width:44px; border-radius:50%; margin-bottom:16px; }
   .footer-brand p{ font-size:0.88rem; line-height:1.6; max-width:32ch; color:var(--cloud-dim); }
@@ -374,515 +377,496 @@ body {
     .footer-bottom{ flex-direction:column; align-items:flex-start; }
     .archive-list li{ flex-direction:column; gap:4px; }
   }
-  /* 新增：高质感全屏视频背景 CSS */
-.video-background-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1; /* 置于底层 */
-    overflow: hidden;
-    background-color: #0C1733;
-}
 
-#bg-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* 居中裁剪，完美铺满屏幕 */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    filter: brightness(0.85) contrast(1.05); /* 稍微降低亮度，增加质感 */
-}
+  /* 高质感全屏视频背景 CSS */
+  .video-background-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1; /* 置于底层 */
+      overflow: hidden;
+      background-color: #0C1733;
+  }
 
-/* 质感关键：深色半透明渐变遮罩 */
-.video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        180deg, 
-        rgba(12, 23, 51, 0.75) 0%, 
-        rgba(12, 23, 51, 0.55) 50%, 
-        rgba(8, 15, 33, 0.85) 100%
-    );
-    backdrop-filter: blur(2px); /* 微弱磨砂滤镜 */
-}
+  #bg-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      filter: brightness(0.85) contrast(1.05);
+  }
 
+  .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+          180deg, 
+          rgba(12, 23, 51, 0.65) 0%, 
+          rgba(12, 23, 51, 0.45) 50%, 
+          rgba(8, 15, 33, 0.75) 100%
+      );
+      backdrop-filter: blur(1px);
+  }
 </style>
 </head>
 <body>
+
     <div class="video-background-wrapper">
         <video autoplay loop muted playsinline id="bg-video">
+            <source src="bg.mp4" type="video/mp4">
             <source src="copy_B41170BE-6803-442C-8808-FB7C80EA3A82.mov" type="video/quicktime">
-            <source src="copy_B41170BE-6803-442C-8808-FB7C80EA3A82.mp4" type="video/mp4">
         </video>
         <div class="video-overlay"></div>
     </div>
 
-   
+    <a class="skip-link" href="#main">Skip to content</a>
 
-<a class="skip-link" href="#main">Skip to content</a>
-
-<!-- ================= HEADER ================= -->
-<header class="site-header">
-  <div class="container">
-    <a class="brand" href="#top">
-      <img src="headerlogo.png" alt="Surrey Hills Compass">
-      <div class="brand-word">
-        <b>Surrey Hills</b>
-        <span>Compass</span>
-      </div>
-    </a>
-    <nav class="main-nav" id="mainNav">
-      <ul>
-        <li><a href="#bearings"><b>N</b> Community</a></li>
-        <li><a href="#dispatches"><b>E</b> Business</a></li>
-        <li><a href="#beats"><b>S</b> Council</a></li>
-        <li><a href="#voices"><b>W</b> Life</a></li>
-        <li><a href="#archive">Archive</a></li>
-      </ul>
-      <a class="btn btn--brass" href="#subscribe">Subscribe</a>
-    </nav>
-    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mainNav">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
-
-<main id="main">
-
-<!-- ================= HERO ================= -->
-<section class="hero" id="top">
-  <div class="hero-ring" aria-hidden="true"></div>
-  <div class="container">
-    <div class="hero-inner">
-      <img class="hero-lockup reveal" src="logo.png" alt="Surrey Hills Compass — Compass Community Guide, Independent Always">
-      <p class="eyebrow reveal">Compass Community Guide · Surrey Hills, VIC</p>
-      <h1 class="reveal">Surrey Hills, delivered to your inbox.</h1>
-      <p class="lede reveal">A free weekly guide to the people, places and decisions shaping Surrey Hills — written by neighbours, for neighbours. No pop-ups, no clickbait, just what's actually going on, sorted by direction.</p>
-       <form class="subscribe-form reveal" id="subscribeForm" method="POST">
-  <input type="hidden" name="_subject" value="Surrey Hills Compass - 新订阅用户!">
-  <input type="hidden" name="_autoresponse" value="🧭 Surrey Hills Compass
-
-Welcome to the neighbourhood!
-
-Thank you for subscribing to Surrey Hills Compass. Every week, we deliver a free local guide straight to your inbox covering:
-• 📍 Community & People
-• 🛍️ Business & Local News
-• 🏛️ Council & Planning Updates
-• ☕ Life & Culture
-
-Stay tuned for our next issue!
-
------------------------------------------
-Surrey Hills Compass — Independent, Always.
-Website: https://surreyhillscompass.vercel.app
-Unsubscribe: https://surreyhillscompass.vercel.app/unsubscribe.html">
-
-  <label for="heroEmail" class="visually-hidden" style="position:absolute;left:-9999px;">Email address</label>
-  <input id="heroEmail" type="email" name="email" required placeholder="you@email.com">
-  <button class="btn btn--brass" type="submit">Subscribe</button>
-</form>
-
-
-      <p class="form-note">Free · Weekly · Local only · <a href="unsubscribe.html" style="text-decoration:underline;">Unsubscribe anytime</a></p>
-      <p class="form-success" id="formSuccess">You're in — check your inbox to confirm.</p>
-
-      <div class="badge-independent">Independent. Always.</div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= THIS WEEK'S BEARINGS ================= -->
-<section class="section--navy" id="bearings">
-  <div class="container">
-    <div class="section-head reveal">
-      <p class="eyebrow">This week's bearings</p>
-      <h2>Four directions, at a glance</h2>
-      <p>The quick version of what's moving in Surrey Hills this week — one line from each beat.</p>
-    </div>
-    <div class="bearings-grid reveal">
-      <article class="bearing-card">
-        <span class="tag tag--n"><i><span>N</span></i>Community</span>
-        <p><em>Road resurfacing works on Union Road will continue through Friday.</em></p>
-      </article>
-      <article class="bearing-card">
-        <span class="tag tag--e"><i><span>E</span></i>Business</span>
-        <p><em>A new artisan bakery has officially opened on Canterbury Road.</em></p>
-      </article>
-      <article class="bearing-card">
-        <span class="tag tag--s"><i><span>S</span></i>Council</span>
-        <p><em>The council has approved additional funding for park upgrades, including new playground facilities and improved lighting.</em></p>
-      </article>
-      <article class="bearing-card">
-        <span class="tag tag--w"><i><span>W</span></i>Life</span>
-        <p><em>The Surrey Hills Community Market returns this Saturday from 9:00am to 1:00pm.</em></p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ================= FEATURED STORY ================= -->
-<section class="section--parchment">
-  <div class="container">
-    <div class="featured reveal">
-
-      <a href="article.html" style="display: block; width: 100%;">
-        <img src="Gemini_Generated_Image_mkfzq8mkfzq8mkfz.png"
-             alt="Proposed Heritage Overlays in Balwyn North and Surrey Hills"
-             style="width: 100%; height: auto; aspect-ratio: 16/10; object-fit: cover; display: block;">
-      </a>
-
-      <div>
-        <span class="tag tag--n"><i><span>N</span></i> Community</span>
-
-        <h3 style="margin-top: 16px;">
-          <a href="article.html">Proposed Heritage Overlays in Balwyn North and Surrey Hills</a>
-        </h3>
-
-        <p class="deck">A new local heritage proposal in the leafy suburb of Surrey Hills has ignited intense discussion among residents, property owners, and urban planning experts.</p>
-        <p class="meta"><i>By Sonny Williamson</i> · <i>30th July, 2026</i></p>
-
-        <a class="btn btn--ghost-light" href="heritageoverlay.html">Read the full story →</a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ================= LATEST DISPATCHES ================= -->
-<section class="section--parchment-2" id="dispatches">
-  <div class="container">
-    <div class="section-head-row reveal" style="margin-bottom:40px;">
-      <div class="section-head" style="margin-bottom:0;">
-        <p class="eyebrow">Latest dispatches</p>
-        <h2>From every direction</h2>
-      </div>
-     <a class="btn btn--ghost-light" href="https://surreyhillsnc.org.au/surrey-hills-neighbourhood-news/">View archive →</a>
-    </div>
-
-    <div class="story-grid reveal">
-      <!-- 卡片模板 ×6 — 复制整个 <article class="story-card">…</article> 即可新增报道 -->
-
-        <article class="story-card">
-          <div class="media">
-            <img src="bird.jpg" alt="Victoria Confirms First H5N1 Bird Flu Case">
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="#top">
+          <img src="headerlogo.png" alt="Surrey Hills Compass">
+          <div class="brand-word">
+            <b>Surrey Hills</b>
+            <span>Compass</span>
           </div>
-          <span class="tag tag--n"><i><span>N</span></i>Community</span>
-          <h4>Victoria Confirms First H5N1 Bird Flu Case in Wildlife</h4>
-          <p class="meta">22th July, 2026 · Jerry Zhang</p>
-        </article>
-
-        <article class="story-card">
-          <div class="media">
-            <img src="buildingcoco.jpg" alt="Japanese Curry Chain CoCo Ichibanya">
-          </div>
-          <span class="tag tag--e"><i><span>E</span></i>Business</span>
-          <h4>Japanese Curry Chain CoCo Ichibanya to Enter Australia</h4>
-          <p class="meta">26th July, 2026 · Camelo Antoneli</p>
-        </article>
-
-        <article class="story-card">
-          <div class="media">
-            <img src="Premier.jpg" alt="Victoria Premier Reform Agenda">
-          </div>
-          <span class="tag tag--s"><i><span>S</span></i>Council</span>
-          <h4>Victoria's New Premier Announces Government Reform Agenda</h4>
-          <p class="meta">30th July, 2026 · ABC</p>
-        </article>
-
-        <article class="story-card">
-          <div class="media">
-            <img src="petrol.jpg" alt="Petrol Prices Rise">
-          </div>
-          <span class="tag tag--w"><i><span>W</span></i>Life</span>
-          <h4>Petrol Prices Rise Above $2 Across Parts of Australia</h4>
-          <p class="meta">25th July, 2026 · 7 News</p>
-        </article>
-
-        <article class="story-card">
-          <div class="media">
-            <img src="cat.jpg" alt="No cats outdoor in the night">
-          </div>
-          <span class="tag tag--n"><i><span>N</span></i>Community</span>
-          <h4>No cats outdoor in the night</h4>
-          <p class="meta">22th July, 2026 · Stephen Isaka</p>
-        </article>
-
-        <article class="story-card">
-          <div class="media">
-            <img src="surreyhills.jpg" alt="Real Estate in Surrey Hills">
-          </div>
-          <span class="tag tag--e"><i><span>E</span></i>Business</span>
-          <h4>Real Estate in Surrey Hills</h4>
-          <p class="meta">11th July, 2026 · RT James</p>
-        </article>
-
-    </div>
-  </div>
-</section>
-
-<!-- ================= FOUR BEARINGS EXPLAINER ================= -->
-<section class="section--parchment" id="beats">
-  <div class="container">
-    <div class="section-head reveal" style="margin:0 auto 8px; text-align:center; max-width:560px;">
-      <p class="eyebrow">How the Compass is organised</p>
-      <h2>Four directions. One neighbourhood.</h2>
-      <p>Every story is filed under one bearing, so you always know what you're reading — and why it matters.</p>
-    </div>
-
-    <div class="rose-wrap reveal" aria-hidden="true">
-      <svg viewBox="0 0 240 240">
-        <circle cx="120" cy="120" r="108" fill="none" stroke="#C9A24E" stroke-width="1" opacity="0.55"/>
-        <circle cx="120" cy="120" r="90" fill="none" stroke="#8E6E2D" stroke-width="1" stroke-dasharray="1 5" opacity="0.6"/>
-        <g stroke="#C9A24E" stroke-width="1.2" opacity="0.7">
-          <line x1="120" y1="10" x2="120" y2="26"/>
-          <line x1="120" y1="214" x2="120" y2="230"/>
-          <line x1="10" y1="120" x2="26" y2="120"/>
-          <line x1="214" y1="120" x2="230" y2="120"/>
-          <line x1="55.7" y1="55.7" x2="66.6" y2="66.6"/>
-          <line x1="173.4" y1="66.6" x2="184.3" y2="55.7"/>
-          <line x1="55.7" y1="184.3" x2="66.6" y2="173.4"/>
-          <line x1="184.3" y1="184.3" x2="173.4" y2="173.4"/>
-        </g>
-        <g font-family="Cormorant Garamond, serif" font-weight="600" font-size="19" fill="#C9A24E" text-anchor="middle">
-          <text x="120" y="56">N</text>
-          <text x="184" y="126">E</text>
-          <text x="120" y="196">S</text>
-          <text x="56" y="126">W</text>
-        </g>
-        <polygon points="120,66 128,120 120,174 112,120" fill="#8E6E2D" opacity="0.85"/>
-        <polygon points="120,66 128,120 120,120 112,120" fill="#E4D3A6"/>
-        <circle cx="120" cy="120" r="4.5" fill="#C9A24E"/>
-      </svg>
-    </div>
-
-    <div class="beats-grid reveal">
-      <div class="beat">
-        <span class="tag tag--n"><i><span>N</span></i>Community</span>
-        <h4>Community &amp; People</h4>
-        <p>The schools, clubs, milestones and neighbours who make Surrey Hills feel like home.</p>
+        </a>
+        <nav class="main-nav" id="mainNav">
+          <ul>
+            <li><a href="#bearings"><b>N</b> Community</a></li>
+            <li><a href="#dispatches"><b>E</b> Business</a></li>
+            <li><a href="#beats"><b>S</b> Council</a></li>
+            <li><a href="#voices"><b>W</b> Life</a></li>
+            <li><a href="#archive">Archive</a></li>
+          </ul>
+          <a class="btn btn--brass" href="#subscribe">Subscribe</a>
+        </nav>
+        <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mainNav">
+          <span></span><span></span><span></span>
+        </button>
       </div>
-      <div class="beat">
-        <span class="tag tag--e"><i><span>E</span></i>Business</span>
-        <h4>Business &amp; Property</h4>
-        <p>What's opening, closing and changing along Union Road, Whitehorse Road and the wider village.</p>
-      </div>
-      <div class="beat">
-        <span class="tag tag--s"><i><span>S</span></i>Council</span>
-        <h4>Council &amp; Planning</h4>
-        <p>The votes, permits and proposals from Boroondara and Whitehorse councils that land on your street.</p>
-      </div>
-      <div class="beat">
-        <span class="tag tag--w"><i><span>W</span></i>Life</span>
-        <h4>Life &amp; Culture</h4>
-        <p>Where to eat, what's on, and the small moments worth knowing about.</p>
-      </div>
-    </div>
-  </div>
-</section>
+    </header>
 
-<!-- ================= COMMUNITY VOICES ================= -->
-<section class="section--navy" id="voices">
-  <div class="container">
-    <div class="section-head reveal">
-      <p class="eyebrow">Community voices</p>
-      <h2>Why neighbours read the Compass</h2>
-    </div>
-    <div class="voices-grid reveal">
-      <div class="voice">
-        <p>"Finally a newsletter that tells me what's happening on my own street before I hear it third-hand at the shops."</p>
-        <cite>— Margaret Chen, Union Road, Surrey Hills</cite>
-      </div>
-      <div class="voice">
-        <p>"It's the only email I actually look forward to opening on a Friday morning. Short, honest, and it's actually about here."</p>
-        <cite>— David Whitfield, Canterbury Road, Surrey Hills</cite>
-      </div>
-      <div class="voice">
-        <p>"No fluff, no ads dressed up as news — just what's changing in the neighbourhood. It's made me feel like I know my neighbours again."</p>
-        <cite>— Priya Nair, Warrigal Road, Surrey Hills</cite>
-      </div>
-    </div>
-  </div>
-</section>
+    <main id="main">
 
-<!-- ================= SUBSCRIBE BAND ================= -->
-<section class="section--navy" id="subscribe">
-  <div class="container">
-    <div class="subscribe-band reveal">
-      <p class="eyebrow" style="color:var(--brass-light);">Get the next issue</p>
-      <h2>One email a week. Every direction covered.</h2>
-      <p>Everything happening in Surrey Hills, sorted by bearing — straight to your inbox, free.</p>
-      <form class="subscribe-form" id="subscribeForm2" method="POST">
-  <input type="hidden" name="_subject" value="Surrey Hills Compass - 新订阅用户!">
-  <label for="bandEmail" class="visually-hidden" style="position:absolute;left:-9999px;">Email address</label>
-  <input id="bandEmail" type="email" name="email" required placeholder="you@email.com">
-  <button class="btn btn--brass" type="submit">Subscribe</button>
-</form>
+    <section class="hero" id="top">
+      <div class="hero-ring" aria-hidden="true"></div>
+      <div class="container">
+        <div class="hero-inner">
+          <img class="hero-lockup reveal" src="logo.png" alt="Surrey Hills Compass — Compass Community Guide, Independent Always">
+          <p class="eyebrow reveal">Compass Community Guide · Surrey Hills, VIC</p>
+          <h1 class="reveal">Surrey Hills, delivered to your inbox.</h1>
+          <p class="lede reveal">A free weekly guide to the people, places and decisions shaping Surrey Hills — written by neighbours, for neighbours. No pop-ups, no clickbait, just what's actually going on, sorted by direction.</p>
+           <form class="subscribe-form reveal" id="subscribeForm" method="POST">
+      <input type="hidden" name="_subject" value="Surrey Hills Compass - 新订阅用户!">
+      <input type="hidden" name="_autoresponse" value="🧭 Surrey Hills Compass
 
-      <p class="form-success" id="formSuccess2">You're in — check your inbox to confirm.</p>
-    </div>
-  </div>
-</section>
+    Welcome to the neighbourhood!
 
-<!-- ================= ARCHIVE ================= -->
-<section class="section--parchment" id="archive">
-  <div class="container">
-    <div class="section-head reveal">
-      <p class="eyebrow">Past dispatches</p>
-      <h2>The archive</h2>
-    </div>
-    <ul class="archive-list reveal">
-      <li><a href="auctionnews.html">Bidding War! A property in Surrey Hills triggers intense unreserved auction.</a><time>1st November,2025</time></li>
-      <li><a href="#">Surrey Hills medical hub sold after 71 years</a><time>22th July,2026</time></li>
-      <li><a href="#">Strong Bones for Life: What Really Works?</a><time>20th July,2026</time></li>
-      <li><a href="#">When real golf meets a virtual course</a><time>11th July,2026</time></li>
-    </ul>
-  </div>
-</section>
+    Thank you for subscribing to Surrey Hills Compass. Every week, we deliver a free local guide straight to your inbox covering:
+    • 📍 Community & People
+    • 🛍️ Business & Local News
+    • 🏛️ Council & Planning Updates
+    • ☕ Life & Culture
 
-</main>
+    Stay tuned for our next issue!
 
-<!-- ================= FOOTER ================= -->
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
-          <img src="headerlogo.png" alt="Surrey Hills Compass mark" style="height:44px; width:44px; border-radius:50%; margin-bottom:0;">
-          <span style="font-family:var(--font-display); font-size:1.15rem; font-weight:600; letter-spacing:0.03em; color:var(--white);">Surrey Hills Compass</span>
-        </div>
-        <p>Independent. Always. A free weekly guide to Surrey Hills, written by neighbours, for neighbours.</p>
-        <div class="social-row" style="margin-top:20px;">
-          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="#E4D3A6" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
-          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="#E4D3A6" stroke-width="1.5"><path d="M15 8h-2a2 2 0 0 0-2 2v10M9 13h6"/><circle cx="12" cy="12" r="9"/></svg></a>
-          <a href="mailto:hello@surreyhillscompass.com.au" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="#E4D3A6" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+    -----------------------------------------
+    Surrey Hills Compass — Independent, Always.
+    Website: https://surreyhillscompass.vercel.app
+    Unsubscribe: https://surreyhillscompass.vercel.app/unsubscribe.html">
+
+      <label for="heroEmail" class="visually-hidden" style="position:absolute;left:-9999px;">Email address</label>
+      <input id="heroEmail" type="email" name="email" required placeholder="you@email.com">
+      <button class="btn btn--brass" type="submit">Subscribe</button>
+    </form>
+
+
+          <p class="form-note">Free · Weekly · Local only · <a href="unsubscribe.html" style="text-decoration:underline;">Unsubscribe anytime</a></p>
+          <p class="form-success" id="formSuccess">You're in — check your inbox to confirm.</p>
+
+          <div class="badge-independent">Independent. Always.</div>
         </div>
       </div>
-      <div class="footer-col">
-        <h5>Bearings</h5>
-        <ul>
-          <li><a href="#bearings">N · Community</a></li>
-          <li><a href="#dispatches">E · Business</a></li>
-          <li><a href="#beats">S · Council</a></li>
-          <li><a href="#voices">W · Life</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>The Compass</h5>
-        <ul>
-          <li><a href="#archive">Archive</a></li>
-          <li><a href="#subscribe">Subscribe</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Advertise</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Get in touch</h5>
-        <div class="footer-col">
-  <h5>Legal</h5>
-  <ul>
-    <li><a href="terms.html">Terms &amp; Conditions</a></li>
-    <li><a href="unsubscribe.html">Unsubscribe</a></li>
-  </ul>
-</div>
-        <ul>
-          <li><a href="mailto:hello@surreyhillscompass.com.au">hello@surreyhillscompass.com.au</a></li>
-          <li><a href="#">Send us a tip</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© <span id="year"></span> Surrey Hills Compass. Independent, always.</p>
-      <p>Made for the neighbourhood, one email at a time.</p>
-    </div>
-  </div>
-</footer>
+    </section>
 
-<script>
-  // 移动端菜单切换
-  const navToggle = document.getElementById('navToggle');
-  const mainNav = document.getElementById('mainNav');
-  navToggle.addEventListener('click', () => {
-    const open = mainNav.classList.toggle('is-open');
-    navToggle.setAttribute('aria-expanded', open);
-  });
-  mainNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    mainNav.classList.remove('is-open');
-    navToggle.setAttribute('aria-expanded', 'false');
-  }));
+    <section class="section--navy" id="bearings">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">This week's bearings</p>
+          <h2>Four directions, at a glance</h2>
+          <p>The quick version of what's moving in Surrey Hills this week — one line from each beat.</p>
+        </div>
+        <div class="bearings-grid reveal">
+          <article class="bearing-card">
+            <span class="tag tag--n"><i><span>N</span></i>Community</span>
+            <p><em>Road resurfacing works on Union Road will continue through Friday.</em></p>
+          </article>
+          <article class="bearing-card">
+            <span class="tag tag--e"><i><span>E</span></i>Business</span>
+            <p><em>A new artisan bakery has officially opened on Canterbury Road.</em></p>
+          </article>
+          <article class="bearing-card">
+            <span class="tag tag--s"><i><span>S</span></i>Council</span>
+            <p><em>The council has approved additional funding for park upgrades, including new playground facilities and improved lighting.</em></p>
+          </article>
+          <article class="bearing-card">
+            <span class="tag tag--w"><i><span>W</span></i>Life</span>
+            <p><em>The Surrey Hills Community Market returns this Saturday from 9:00am to 1:00pm.</em></p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-  // 页面滚动淡入动画 (IntersectionObserver)
-  const revealEls = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
+    <section class="section--parchment">
+      <div class="container">
+        <div class="featured reveal">
+
+          <a href="article.html" style="display: block; width: 100%;">
+            <img src="Gemini_Generated_Image_mkfzq8mkfzq8mkfz.png"
+                 alt="Proposed Heritage Overlays in Balwyn North and Surrey Hills"
+                 style="width: 100%; height: auto; aspect-ratio: 16/10; object-fit: cover; display: block;">
+          </a>
+
+          <div>
+            <span class="tag tag--n"><i><span>N</span></i> Community</span>
+
+            <h3 style="margin-top: 16px;">
+              <a href="article.html">Proposed Heritage Overlays in Balwyn North and Surrey Hills</a>
+            </h3>
+
+            <p class="deck">A new local heritage proposal in the leafy suburb of Surrey Hills has ignited intense discussion among residents, property owners, and urban planning experts.</p>
+            <p class="meta"><i>By Sonny Williamson</i> · <i>30th July, 2026</i></p>
+
+            <a class="btn btn--ghost-light" href="heritageoverlay.html">Read the full story →</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section--parchment-2" id="dispatches">
+      <div class="container">
+        <div class="section-head-row reveal" style="margin-bottom:40px;">
+          <div class="section-head" style="margin-bottom:0;">
+            <p class="eyebrow">Latest dispatches</p>
+            <h2>From every direction</h2>
+          </div>
+         <a class="btn btn--ghost-light" href="https://surreyhillsnc.org.au/surrey-hills-neighbourhood-news/">View archive →</a>
+        </div>
+
+        <div class="story-grid reveal">
+            <article class="story-card">
+              <div class="media">
+                <img src="bird.jpg" alt="Victoria Confirms First H5N1 Bird Flu Case">
+              </div>
+              <span class="tag tag--n"><i><span>N</span></i>Community</span>
+              <h4>Victoria Confirms First H5N1 Bird Flu Case in Wildlife</h4>
+              <p class="meta">22th July, 2026 · Jerry Zhang</p>
+            </article>
+
+            <article class="story-card">
+              <div class="media">
+                <img src="buildingcoco.jpg" alt="Japanese Curry Chain CoCo Ichibanya">
+              </div>
+              <span class="tag tag--e"><i><span>E</span></i>Business</span>
+              <h4>Japanese Curry Chain CoCo Ichibanya to Enter Australia</h4>
+              <p class="meta">26th July, 2026 · Camelo Antoneli</p>
+            </article>
+
+            <article class="story-card">
+              <div class="media">
+                <img src="Premier.jpg" alt="Victoria Premier Reform Agenda">
+              </div>
+              <span class="tag tag--s"><i><span>S</span></i>Council</span>
+              <h4>Victoria's New Premier Announces Government Reform Agenda</h4>
+              <p class="meta">30th July, 2026 · ABC</p>
+            </article>
+
+            <article class="story-card">
+              <div class="media">
+                <img src="petrol.jpg" alt="Petrol Prices Rise">
+              </div>
+              <span class="tag tag--w"><i><span>W</span></i>Life</span>
+              <h4>Petrol Prices Rise Above $2 Across Parts of Australia</h4>
+              <p class="meta">25th July, 2026 · 7 News</p>
+            </article>
+
+            <article class="story-card">
+              <div class="media">
+                <img src="cat.jpg" alt="No cats outdoor in the night">
+              </div>
+              <span class="tag tag--n"><i><span>N</span></i>Community</span>
+              <h4>No cats outdoor in the night</h4>
+              <p class="meta">22th July, 2026 · Stephen Isaka</p>
+            </article>
+
+            <article class="story-card">
+              <div class="media">
+                <img src="surreyhills.jpg" alt="Real Estate in Surrey Hills">
+              </div>
+              <span class="tag tag--e"><i><span>E</span></i>Business</span>
+              <h4>Real Estate in Surrey Hills</h4>
+              <p class="meta">11th July, 2026 · RT James</p>
+            </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section--parchment" id="beats">
+      <div class="container">
+        <div class="section-head reveal" style="margin:0 auto 8px; text-align:center; max-width:560px;">
+          <p class="eyebrow">How the Compass is organised</p>
+          <h2>Four directions. One neighbourhood.</h2>
+          <p>Every story is filed under one bearing, so you always know what you're reading — and why it matters.</p>
+        </div>
+
+        <div class="rose-wrap reveal" aria-hidden="true">
+          <svg viewBox="0 0 240 240">
+            <circle cx="120" cy="120" r="108" fill="none" stroke="#C9A24E" stroke-width="1" opacity="0.55"/>
+            <circle cx="120" cy="120" r="90" fill="none" stroke="#8E6E2D" stroke-width="1" stroke-dasharray="1 5" opacity="0.6"/>
+            <g stroke="#C9A24E" stroke-width="1.2" opacity="0.7">
+              <line x1="120" y1="10" x2="120" y2="26"/>
+              <line x1="120" y1="214" x2="120" y2="230"/>
+              <line x1="10" y1="120" x2="26" y2="120"/>
+              <line x1="214" y1="120" x2="230" y2="120"/>
+              <line x1="55.7" y1="55.7" x2="66.6" y2="66.6"/>
+              <line x1="173.4" y1="66.6" x2="184.3" y2="55.7"/>
+              <line x1="55.7" y1="184.3" x2="66.6" y2="173.4"/>
+              <line x1="184.3" y1="184.3" x2="173.4" y2="173.4"/>
+            </g>
+            <g font-family="Cormorant Garamond, serif" font-weight="600" font-size="19" fill="#C9A24E" text-anchor="middle">
+              <text x="120" y="56">N</text>
+              <text x="184" y="126">E</text>
+              <text x="120" y="196">S</text>
+              <text x="56" y="126">W</text>
+            </g>
+            <polygon points="120,66 128,120 120,174 112,120" fill="#8E6E2D" opacity="0.85"/>
+            <polygon points="120,66 128,120 120,120 112,120" fill="#E4D3A6"/>
+            <circle cx="120" cy="120" r="4.5" fill="#C9A24E"/>
+          </svg>
+        </div>
+
+        <div class="beats-grid reveal">
+          <div class="beat">
+            <span class="tag tag--n"><i><span>N</span></i>Community</span>
+            <h4>Community &amp; People</h4>
+            <p>The schools, clubs, milestones and neighbours who make Surrey Hills feel like home.</p>
+          </div>
+          <div class="beat">
+            <span class="tag tag--e"><i><span>E</span></i>Business</span>
+            <h4>Business &amp; Property</h4>
+            <p>What's opening, closing and changing along Union Road, Whitehorse Road and the wider village.</p>
+          </div>
+          <div class="beat">
+            <span class="tag tag--s"><i><span>S</span></i>Council</span>
+            <h4>Council &amp; Planning</h4>
+            <p>The votes, permits and proposals from Boroondara and Whitehorse councils that land on your street.</p>
+          </div>
+          <div class="beat">
+            <span class="tag tag--w"><i><span>W</span></i>Life</span>
+            <h4>Life &amp; Culture</h4>
+            <p>Where to eat, what's on, and the small moments worth knowing about.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section--navy" id="voices">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Community voices</p>
+          <h2>Why neighbours read the Compass</h2>
+        </div>
+        <div class="voices-grid reveal">
+          <div class="voice">
+            <p>"Finally a newsletter that tells me what's happening on my own street before I hear it third-hand at the shops."</p>
+            <cite>— Margaret Chen, Union Road, Surrey Hills</cite>
+          </div>
+          <div class="voice">
+            <p>"It's the only email I actually look forward to opening on a Friday morning. Short, honest, and it's actually about here."</p>
+            <cite>— David Whitfield, Canterbury Road, Surrey Hills</cite>
+          </div>
+          <div class="voice">
+            <p>"No fluff, no ads dressed up as news — just what's changing in the neighbourhood. It's made me feel like I know my neighbours again."</p>
+            <cite>— Priya Nair, Warrigal Road, Surrey Hills</cite>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section--navy" id="subscribe">
+      <div class="container">
+        <div class="subscribe-band reveal">
+          <p class="eyebrow" style="color:var(--brass-light);">Get the next issue</p>
+          <h2>One email a week. Every direction covered.</h2>
+          <p>Everything happening in Surrey Hills, sorted by bearing — straight to your inbox, free.</p>
+          <form class="subscribe-form" id="subscribeForm2" method="POST">
+      <input type="hidden" name="_subject" value="Surrey Hills Compass - 新订阅用户!">
+      <label for="bandEmail" class="visually-hidden" style="position:absolute;left:-9999px;">Email address</label>
+      <input id="bandEmail" type="email" name="email" required placeholder="you@email.com">
+      <button class="btn btn--brass" type="submit">Subscribe</button>
+    </form>
+
+          <p class="form-success" id="formSuccess2">You're in — check your inbox to confirm.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section--parchment" id="archive">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Past dispatches</p>
+          <h2>The archive</h2>
+        </div>
+        <ul class="archive-list reveal">
+          <li><a href="auctionnews.html">Bidding War! A property in Surrey Hills triggers intense unreserved auction.</a><time>1st November,2025</time></li>
+          <li><a href="#">Surrey Hills medical hub sold after 71 years</a><time>22th July,2026</time></li>
+          <li><a href="#">Strong Bones for Life: What Really Works?</a><time>20th July,2026</time></li>
+          <li><a href="#">When real golf meets a virtual course</a><time>11th July,2026</time></li>
+        </ul>
+      </div>
+    </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+              <img src="headerlogo.png" alt="Surrey Hills Compass mark" style="height:44px; width:44px; border-radius:50%; margin-bottom:0;">
+              <span style="font-family:var(--font-display); font-size:1.15rem; font-weight:600; letter-spacing:0.03em; color:var(--white);">Surrey Hills Compass</span>
+            </div>
+            <p>Independent. Always. A free weekly guide to Surrey Hills, written by neighbours, for neighbours.</p>
+            <div class="social-row" style="margin-top:20px;">
+              <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="#E4D3A6" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
+              <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="#E4D3A6" stroke-width="1.5"><path d="M15 8h-2a2 2 0 0 0-2 2v10M9 13h6"/><circle cx="12" cy="12" r="9"/></svg></a>
+              <a href="mailto:hello@surreyhillscompass.com.au" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="#E4D3A6" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h5>Bearings</h5>
+            <ul>
+              <li><a href="#bearings">N · Community</a></li>
+              <li><a href="#dispatches">E · Business</a></li>
+              <li><a href="#beats">S · Council</a></li>
+              <li><a href="#voices">W · Life</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h5>The Compass</h5>
+            <ul>
+              <li><a href="#archive">Archive</a></li>
+              <li><a href="#subscribe">Subscribe</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Advertise</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h5>Legal</h5>
+            <ul>
+              <li><a href="terms.html">Terms &amp; Conditions</a></li>
+              <li><a href="unsubscribe.html">Unsubscribe</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h5>Get in touch</h5>
+            <ul>
+              <li><a href="mailto:hello@surreyhillscompass.com.au">hello@surreyhillscompass.com.au</a></li>
+              <li><a href="#">Send us a tip</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© <span id="year"></span> Surrey Hills Compass. Independent, always.</p>
+          <p>Made for the neighbourhood, one email at a time.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // 移动端菜单切换
+      const navToggle = document.getElementById('navToggle');
+      const mainNav = document.getElementById('mainNav');
+      navToggle.addEventListener('click', () => {
+        const open = mainNav.classList.toggle('is-open');
+        navToggle.setAttribute('aria-expanded', open);
       });
-    }, { threshold: 0.12 });
-    revealEls.forEach(el => io.observe(el));
-  } else {
-    revealEls.forEach(el => el.classList.add('is-visible'));
-  }
+      mainNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        mainNav.classList.remove('is-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }));
 
-  // FormSubmit AJAX 提交逻辑
-  function wireForm(formId, successId) {
-    const form = document.getElementById(formId);
-    const success = document.getElementById(successId);
-    if (!form) return;
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const originalBtnText = submitBtn.textContent;
-      
-      // 改变按钮状态为加载中
-      submitBtn.textContent = 'Sending...';
-      submitBtn.disabled = true;
-
-      const targetEmail = "c7898166984cdc3db483fad1c8b40e4c"; 
-
-      try {
-        const response = await fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
-          method: 'POST',
-          headers: { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(Object.fromEntries(new FormData(form)))
-        });
-
-        if (response.ok) {
-          success.classList.add('is-visible');
-          form.reset();
-        } else {
-          alert("Submission failed, please try again.");
-        }
-      } catch (error) {
-        alert("Network error, please try again.");
-      } finally {
-        submitBtn.textContent = originalBtnText;
-        submitBtn.disabled = false;
+      // 页面滚动淡入动画 (IntersectionObserver)
+      const revealEls = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        revealEls.forEach(el => io.observe(el));
+      } else {
+        revealEls.forEach(el => el.classList.add('is-visible'));
       }
-    });
-  }
 
-  // 绑定两个订阅表单 (必须添加)
-  wireForm('subscribeForm', 'formSuccess');
-  wireForm('subscribeForm2', 'formSuccess2');
+      // FormSubmit AJAX 提交逻辑
+      function wireForm(formId, successId) {
+        const form = document.getElementById(formId);
+        const success = document.getElementById(successId);
+        if (!form) return;
 
-  // 自动更新 Footer 年份
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const submitBtn = form.querySelector('button[type="submit"]');
+          const originalBtnText = submitBtn.textContent;
+          
+          submitBtn.textContent = 'Sending...';
+          submitBtn.disabled = true;
 
+          const targetEmail = "c7898166984cdc3db483fad1c8b40e4c"; 
+
+          try {
+            const response = await fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
+              method: 'POST',
+              headers: { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              body: JSON.stringify(Object.fromEntries(new FormData(form)))
+            });
+
+            if (response.ok) {
+              success.classList.add('is-visible');
+              form.reset();
+            } else {
+              alert("Submission failed, please try again.");
+            }
+          } catch (error) {
+            alert("Network error, please try again.");
+          } finally {
+            submitBtn.textContent = originalBtnText;
+            submitBtn.disabled = false;
+          }
+        });
+      }
+
+      wireForm('subscribeForm', 'formSuccess');
+      wireForm('subscribeForm2', 'formSuccess2');
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
 
 </body>
 </html>

@@ -374,6 +374,45 @@ body {
     .footer-bottom{ flex-direction:column; align-items:flex-start; }
     .archive-list li{ flex-direction:column; gap:4px; }
   }
+  /* 新增：高质感全屏视频背景 CSS */
+.video-background-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* 置于底层 */
+    overflow: hidden;
+    background-color: #0C1733;
+}
+
+#bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 居中裁剪，完美铺满屏幕 */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    filter: brightness(0.85) contrast(1.05); /* 稍微降低亮度，增加质感 */
+}
+
+/* 质感关键：深色半透明渐变遮罩 */
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        180deg, 
+        rgba(12, 23, 51, 0.75) 0%, 
+        rgba(12, 23, 51, 0.55) 50%, 
+        rgba(8, 15, 33, 0.85) 100%
+    );
+    backdrop-filter: blur(2px); /* 微弱磨砂滤镜 */
+}
+
 </style>
 </head>
 <body>

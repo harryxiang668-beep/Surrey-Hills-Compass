@@ -10,6 +10,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
   :root{
     --navy:        #0C1733;
@@ -80,7 +82,7 @@
   /* ================= HEADER ================= */
   .site-header{
     position:sticky; top:0; z-index:200;
-    background:rgba(12, 23, 51, 0.92); /* 微微半透明毛玻璃 */
+    background:rgba(12, 23, 51, 0.92);
     backdrop-filter: blur(8px);
     border-bottom:1px solid var(--navy-line);
   }
@@ -133,10 +135,10 @@
   }
   .nav-toggle span{ width:24px; height:2px; background:var(--brass-light); display:block; }
 
-  /* ================= HERO (修改为半透明透明度以透出视频) ================= */
+  /* ================= HERO ================= */
   .hero{
     position:relative; 
-    background: rgba(12, 23, 51, 0.45); /* 替换为 45% 透明度，透出背景视频 */
+    background: rgba(12, 23, 51, 0.45);
     color:var(--white);
     overflow:hidden;
     padding:clamp(64px,10vw,120px) 0 clamp(56px,8vw,96px);
@@ -190,7 +192,7 @@
 
   /* ================= SECTION SCAFFOLDING ================= */
   section{ padding:clamp(56px,8vw,96px) 0; }
-  .section--navy{ background: rgba(12, 23, 51, 0.65); color:var(--white); } /* 调整为半透明透出背景视频 */
+  .section--navy{ background: rgba(12, 23, 51, 0.65); color:var(--white); }
   .section--parchment{ background:var(--parchment); }
   .section--parchment-2{ background:var(--parchment-2); }
   .section-head{ max-width:640px; margin:0 0 40px; }
@@ -227,7 +229,7 @@
   .bearing-card p{ font-size:0.92rem; line-height:1.55; color:var(--cloud); margin:0; }
   .bearing-card p em{ color:var(--cloud-dim); font-style:normal; }
 
-  /* ================= MEDIA 适配与图片空间预留 ================= */
+  /* ================= MEDIA 适配 ================= */
   .media {
     position: relative;
     display: flex;
@@ -236,24 +238,16 @@
     justify-content: center;
     gap: 10px;
     background:
-      repeating-linear-gradient(135deg, rgba(201,162,78,0.07) 0 10px, transparent 10px 20px),
-      var(--navy-2);
-    border: 1px dashed rgba(201,162,78,0.55);
-    color: var(--brass-light);
+      repeating-linear-gradient(135deg, rgba(19,27,46,0.05) 0 10px, transparent 10px 20px),
+      var(--parchment-2);
+    border: 1px dashed rgba(19,27,46,0.28);
+    color: var(--ink-soft);
     aspect-ratio: 4 / 3;
     width: 100%;
     text-align: center;
     padding: 0;
     overflow: hidden;
     border-radius: 2px;
-  }
-
-  .section--parchment .media, .section--parchment-2 .media {
-    background:
-      repeating-linear-gradient(135deg, rgba(19,27,46,0.05) 0 10px, transparent 10px 20px),
-      var(--parchment-2);
-    border-color: rgba(19,27,46,0.28);
-    color: var(--ink-soft);
   }
 
   .media img {
@@ -263,23 +257,7 @@
     display: block;
   }
 
-  .media svg { width: 26px; height: 26px; opacity: 0.85; }
-  .media span { font-size: 0.72rem; letter-spacing: 0.06em; line-height: 1.5; max-width: 22ch; }
-  .media--wide { aspect-ratio: 16 / 10; }
-  .media--tall { aspect-ratio: 3 / 2; }
-
-  /* ================= FEATURED STORY ================= */
-  .featured{ display:grid; grid-template-columns:1.05fr 0.95fr; gap:52px; align-items:center; }
-  .featured .tag{ margin-bottom:18px; }
-  .featured h3{
-    font-family:var(--font-display); font-weight:600; font-size:clamp(1.6rem,2.4vw + 1rem,2.3rem);
-    line-height:1.18; margin:0 0 16px;
-  }
-  .featured p.deck{ color:var(--ink-soft); font-size:1.02rem; line-height:1.6; margin:0 0 22px; }
-  .featured .meta{ font-size:0.82rem; color:var(--ink-soft); margin-bottom:26px; display:flex; gap:8px; align-items:center; }
-  .featured .meta i{ font-style:normal; }
-
-  /* ================= STORY GRID ================= */
+  /* ================= STORY GRID (Latest Dispatches) ================= */
   .story-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:34px 30px; }
   .story-card .tag{ margin-bottom:16px; }
   .story-card .media{ margin-bottom:18px; }
@@ -287,8 +265,7 @@
     font-family:var(--font-display); font-weight:600; font-size:1.32rem; line-height:1.26; margin:0 0 10px;
   }
   .story-card p{ color:var(--ink-soft); font-size:0.92rem; line-height:1.55; margin:0 0 14px; }
-  .story-card .meta{ font-size:0.76rem; color:var(--cloud-dim); letter-spacing:0.02em; }
-  .section--parchment .story-card .meta, .section--parchment-2 .story-card .meta{ color:var(--ink-soft); opacity:0.75; }
+  .story-card .meta{ font-size:0.76rem; color:var(--ink-soft); opacity:0.75; letter-spacing:0.02em; }
 
   /* ================= BEARINGS DIAGRAM ================= */
   .rose-wrap{ display:flex; justify-content:center; margin-bottom:44px; }
@@ -363,7 +340,6 @@
     .main-nav.is-open ul{ display:flex; flex-direction:column; gap:22px; }
     .main-nav.is-open .btn{ display:inline-flex; }
     .main-nav ul a{ font-size:1.05rem; }
-    .featured{ grid-template-columns:1fr; gap:30px; }
     .story-grid{ grid-template-columns:repeat(2,1fr); }
     .voices-grid{ grid-template-columns:1fr; gap:30px; }
     .beats-grid{ grid-template-columns:repeat(2,1fr); gap:32px 24px; }
@@ -378,41 +354,21 @@
     .archive-list li{ flex-direction:column; gap:4px; }
   }
 
-  /* 高质感全屏视频背景 CSS */
+  /* 视频背景 CSS */
   .video-background-wrapper {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: -1; /* 置于底层 */
-      overflow: hidden;
-      background-color: #0C1733;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: -1; overflow: hidden; background-color: #0C1733;
   }
-
   #bg-video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      position: absolute;
-      top: 50%;
-      left: 50%;
+      width: 100%; height: 100%; object-fit: cover;
+      position: absolute; top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       filter: brightness(0.85) contrast(1.05);
   }
-
   .video-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-          180deg, 
-          rgba(12, 23, 51, 0.65) 0%, 
-          rgba(12, 23, 51, 0.45) 50%, 
-          rgba(8, 15, 33, 0.75) 100%
-      );
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(180deg, rgba(12, 23, 51, 0.65) 0%, rgba(12, 23, 51, 0.45) 50%, rgba(8, 15, 33, 0.75) 100%);
       backdrop-filter: blur(1px);
   }
 </style>
@@ -466,32 +422,12 @@
           <p class="lede reveal">A free weekly guide to the people, places and decisions shaping Surrey Hills — written by neighbours, for neighbours. No pop-ups, no clickbait, just what's actually going on, sorted by direction.</p>
            <form class="subscribe-form reveal" id="subscribeForm" method="POST">
       <input type="hidden" name="_subject" value="Surrey Hills Compass - 新订阅用户!">
-      <input type="hidden" name="_autoresponse" value="🧭 Surrey Hills Compass
-
-    Welcome to the neighbourhood!
-
-    Thank you for subscribing to Surrey Hills Compass. Every week, we deliver a free local guide straight to your inbox covering:
-    • 📍 Community & People
-    • 🛍️ Business & Local News
-    • 🏛️ Council & Planning Updates
-    • ☕ Life & Culture
-
-    Stay tuned for our next issue!
-
-    -----------------------------------------
-    Surrey Hills Compass — Independent, Always.
-    Website: https://surreyhillscompass.vercel.app
-    Unsubscribe: https://surreyhillscompass.vercel.app/unsubscribe.html">
-
       <label for="heroEmail" class="visually-hidden" style="position:absolute;left:-9999px;">Email address</label>
       <input id="heroEmail" type="email" name="email" required placeholder="you@email.com">
       <button class="btn btn--brass" type="submit">Subscribe</button>
     </form>
-
-
           <p class="form-note">Free · Weekly · Local only · <a href="unsubscribe.html" style="text-decoration:underline;">Unsubscribe anytime</a></p>
           <p class="form-success" id="formSuccess">You're in — check your inbox to confirm.</p>
-
           <div class="badge-independent">Independent. Always.</div>
         </div>
       </div>
@@ -525,33 +461,6 @@
       </div>
     </section>
 
-    <section class="section--parchment">
-      <div class="container">
-        <div class="featured reveal">
-
-          <a href="article.html" style="display: block; width: 100%;">
-            <img src="Gemini_Generated_Image_mkfzq8mkfzq8mkfz.png"
-                 alt="Proposed Heritage Overlays in Balwyn North and Surrey Hills"
-                 style="width: 100%; height: auto; aspect-ratio: 16/10; object-fit: cover; display: block;">
-          </a>
-
-          <div>
-            <span class="tag tag--n"><i><span>N</span></i> Community</span>
-
-            <h3 style="margin-top: 16px;">
-              <a href="article.html">Proposed Heritage Overlays in Balwyn North and Surrey Hills</a>
-            </h3>
-
-            <p class="deck">A new local heritage proposal in the leafy suburb of Surrey Hills has ignited intense discussion among residents, property owners, and urban planning experts.</p>
-            <p class="meta"><i>By Sonny Williamson</i> · <i>30th July, 2026</i></p>
-
-            <a class="btn btn--ghost-light" href="heritageoverlay.html">Read the full story →</a>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
     <section class="section--parchment-2" id="dispatches">
       <div class="container">
         <div class="section-head-row reveal" style="margin-bottom:40px;">
@@ -559,63 +468,11 @@
             <p class="eyebrow">Latest dispatches</p>
             <h2>From every direction</h2>
           </div>
-         <a class="btn btn--ghost-light" href="https://surreyhillsnc.org.au/surrey-hills-neighbourhood-news/">View archive →</a>
+         <a class="btn btn--ghost-light" href="#archive">View archive →</a>
         </div>
 
-        <div class="story-grid reveal">
-            <article class="story-card">
-              <div class="media">
-                <img src="bird.jpg" alt="Victoria Confirms First H5N1 Bird Flu Case">
-              </div>
-              <span class="tag tag--n"><i><span>N</span></i>Community</span>
-              <h4>Victoria Confirms First H5N1 Bird Flu Case in Wildlife</h4>
-              <p class="meta">22th July, 2026 · Jerry Zhang</p>
-            </article>
-
-            <article class="story-card">
-              <div class="media">
-                <img src="buildingcoco.jpg" alt="Japanese Curry Chain CoCo Ichibanya">
-              </div>
-              <span class="tag tag--e"><i><span>E</span></i>Business</span>
-              <h4>Japanese Curry Chain CoCo Ichibanya to Enter Australia</h4>
-              <p class="meta">26th July, 2026 · Camelo Antoneli</p>
-            </article>
-
-            <article class="story-card">
-              <div class="media">
-                <img src="Premier.jpg" alt="Victoria Premier Reform Agenda">
-              </div>
-              <span class="tag tag--s"><i><span>S</span></i>Council</span>
-              <h4>Victoria's New Premier Announces Government Reform Agenda</h4>
-              <p class="meta">30th July, 2026 · ABC</p>
-            </article>
-
-            <article class="story-card">
-              <div class="media">
-                <img src="petrol.jpg" alt="Petrol Prices Rise">
-              </div>
-              <span class="tag tag--w"><i><span>W</span></i>Life</span>
-              <h4>Petrol Prices Rise Above $2 Across Parts of Australia</h4>
-              <p class="meta">25th July, 2026 · 7 News</p>
-            </article>
-
-            <article class="story-card">
-              <div class="media">
-                <img src="cat.jpg" alt="No cats outdoor in the night">
-              </div>
-              <span class="tag tag--n"><i><span>N</span></i>Community</span>
-              <h4>No cats outdoor in the night</h4>
-              <p class="meta">22th July, 2026 · Stephen Isaka</p>
-            </article>
-
-            <article class="story-card">
-              <div class="media">
-                <img src="surreyhills.jpg" alt="Real Estate in Surrey Hills">
-              </div>
-              <span class="tag tag--e"><i><span>E</span></i>Business</span>
-              <h4>Real Estate in Surrey Hills</h4>
-              <p class="meta">11th July, 2026 · RT James</p>
-            </article>
+        <div class="story-grid reveal" id="latest-dispatches-container">
+            <p style="grid-column: 1 / -1; text-align: center; color: var(--ink-soft); padding: 40px 0;">Loading latest dispatches...</p>
         </div>
       </div>
     </section>
@@ -709,12 +566,11 @@
           <h2>One email a week. Every direction covered.</h2>
           <p>Everything happening in Surrey Hills, sorted by bearing — straight to your inbox, free.</p>
           <form class="subscribe-form" id="subscribeForm2" method="POST">
-      <input type="hidden" name="_subject" value="Surrey Hills Compass - 新订阅用户!">
-      <label for="bandEmail" class="visually-hidden" style="position:absolute;left:-9999px;">Email address</label>
-      <input id="bandEmail" type="email" name="email" required placeholder="you@email.com">
-      <button class="btn btn--brass" type="submit">Subscribe</button>
-    </form>
-
+            <input type="hidden" name="_subject" value="Surrey Hills Compass - 新订阅用户!">
+            <label for="bandEmail" class="visually-hidden" style="position:absolute;left:-9999px;">Email address</label>
+            <input id="bandEmail" type="email" name="email" required placeholder="you@email.com">
+            <button class="btn btn--brass" type="submit">Subscribe</button>
+          </form>
           <p class="form-success" id="formSuccess2">You're in — check your inbox to confirm.</p>
         </div>
       </div>
@@ -726,11 +582,8 @@
           <p class="eyebrow">Past dispatches</p>
           <h2>The archive</h2>
         </div>
-        <ul class="archive-list reveal">
-          <li><a href="auctionnews.html">Bidding War! A property in Surrey Hills triggers intense unreserved auction.</a><time>1st November,2025</time></li>
-          <li><a href="#">Surrey Hills medical hub sold after 71 years</a><time>22th July,2026</time></li>
-          <li><a href="#">Strong Bones for Life: What Really Works?</a><time>20th July,2026</time></li>
-          <li><a href="#">When real golf meets a virtual course</a><time>11th July,2026</time></li>
+        <ul class="archive-list reveal" id="archive-list-container">
+          <li><span>Loading archive...</span><time>—</time></li>
         </ul>
       </div>
     </section>
@@ -793,7 +646,95 @@
     </footer>
 
     <script>
-      // 移动端菜单切换
+      // ================= SUPABASE 配置 =================
+      // 请将下面的 URL 和 Anon Key 替换为你自己的 Supabase 项目凭证
+      const SUPABASE_URL = 'https://jlghdzslvrssorfamvvy.supabase.co/rest/v1/';
+      const SUPABASE_ANON_KEY = 'sb_publishable_Rqd0UuTG8mfHvBn7eJjUjw_a97IBgTp';
+      
+      let supabaseClient = null;
+      if (SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+        supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      }
+
+      // 异步加载新闻数据
+      async function loadArticles() {
+        const latestContainer = document.getElementById('latest-dispatches-container');
+        const archiveContainer = document.getElementById('archive-list-container');
+
+        if (!supabaseClient) {
+          latestContainer.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: var(--ink-soft);">Please configure your Supabase credentials in the script.</p>';
+          archiveContainer.innerHTML = '<li><span>Please configure your Supabase credentials.</span><time>—</time></li>';
+          return;
+        }
+
+        try {
+          // 从你的 Supabase 数据库表获取数据（假设表名为 articles，按创建时间或发布日期降序排列）
+          // 请根据你的实际表结构调整字段名（例如：title, slug, published_at, category, image_url, author 等）
+          const { data, error } = await supabaseClient
+            .from('articles')
+            .select('*')
+            .order('published_at', { ascending: false });
+
+          if (error) throw error;
+
+          if (!data || data.length === 0) {
+            latestContainer.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: var(--ink-soft);">No dispatches found yet.</p>';
+            archiveContainer.innerHTML = '<li><span>No archive items available.</span><time>—</time></li>';
+            return;
+          }
+
+          // 最新 6 期放入 Latest Dispatches
+          const latestItems = data.slice(0, 6);
+          // 第 7 期及之后放入 Archive
+          const archiveItems = data.slice(6);
+
+          // 1. 渲染 Latest Dispatches
+          latestContainer.innerHTML = latestItems.map(item => {
+            // 根据分类匹配方向标签样式 (n, e, s, w)
+            let tagClass = 'tag--n';
+            let catLetter = 'N';
+            const catName = item.category || 'Community';
+            const lowerCat = catName.toLowerCase();
+            if (lowerCat.includes('business')) { tagClass = 'tag--e'; catLetter = 'E'; }
+            else if (lowerCat.includes('council')) { tagClass = 'tag--s'; catLetter = 'S'; }
+            else if (lowerCat.includes('life')) { tagClass = 'tag--w'; catLetter = 'W'; }
+
+            return `
+              <article class="story-card">
+                <div class="media">
+                  <img src="${item.image_url || 'placeholder.jpg'}" alt="${item.title}">
+                </div>
+                <span class="tag ${tagClass}"><i><span>${catLetter}</span></i>${catName}</span>
+                <h4><a href="article.html?id=${item.id}">${item.title}</a></h4>
+                <p class="meta">${item.published_at ? new Date(item.published_at).toLocaleDateString() : ''} · ${item.author || 'Editorial Team'}</p>
+              </article>
+            `;
+          }).join('');
+
+          // 2. 渲染 Archive
+          if (archiveItems.length > 0) {
+            archiveContainer.innerHTML = archiveItems.map(item => `
+              <li>
+                <a href="article.html?id=${item.id}">${item.title}</a>
+                <time>${item.published_at ? new Date(item.published_at).toLocaleDateString() : ''}</time>
+              </li>
+            `).join('');
+          } else {
+            archiveContainer.innerHTML = '<li><span>No older dispatches in archive yet.</span><time>—</time></li>';
+          }
+
+        } catch (err) {
+          console.error('Error fetching articles from Supabase:', err);
+          latestContainer.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: var(--ink-soft);">Failed to load dispatches. Please check network or table setup.</p>';
+          archiveContainer.innerHTML = '<li><span>Failed to load archive.</span><time>—</time></li>';
+        }
+      }
+
+      // 页面加载后执行请求
+      document.addEventListener('DOMContentLoaded', loadArticles);
+
+
+      // ================= 其他原有前端交互逻辑 =================
       const navToggle = document.getElementById('navToggle');
       const mainNav = document.getElementById('mainNav');
       navToggle.addEventListener('click', () => {

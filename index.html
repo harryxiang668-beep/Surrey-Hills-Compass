@@ -3858,6 +3858,25 @@ document.addEventListener(
 );
 
 </script>
+    
+    <div id="cookie-bubble" style="position: fixed; bottom: 24px; right: 24px; max-width: 320px; background: #ffffff; color: #131B2E; padding: 22px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #E3DED4; z-index: 9999; display: none; font-family: 'Inter', -apple-system, sans-serif;">
+      <p style="margin: 0 0 14px; font-size: 0.85rem; line-height: 1.6; color: #4B5468;">
+        We use cookies and analytics to improve your reading experience. Learn more in our <a href="privacy.html" style="color: #C9A24E; text-decoration: underline; font-weight: 500;">Privacy Policy</a>.
+      </p>
+      <div style="display: flex; justify-content: flex-end;">
+        <button onclick="acceptCookies()" style="background: #0C1733; color: #ffffff; border: none; padding: 7px 16px; font-size: 0.8rem; font-weight: 600; border-radius: 4px; cursor: pointer;">Got it</button>
+      </div>
+    </div>
+
+    <script>
+      if (!localStorage.getItem('compassCookiesAccepted')) {
+        document.getElementById('cookie-bubble').style.display = 'block';
+      }
+      function acceptCookies() {
+        localStorage.setItem('compassCookiesAccepted', 'true');
+        document.getElementById('cookie-bubble').style.display = 'none';
+      }
+    </script>
 
 </body>
 </html>

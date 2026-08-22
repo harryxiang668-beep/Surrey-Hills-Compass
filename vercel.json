@@ -5,7 +5,18 @@
       "has": [
         {
           "type": "host",
-          "value": "(.*)vercel\\.app"
+          "value": "surreyhillscompass.vercel.app"
+        }
+      ],
+      "destination": "https://www.surreyhillscompass.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.surreyhillscompass.vercel.app"
         }
       ],
       "destination": "https://www.surreyhillscompass.com/:path*",

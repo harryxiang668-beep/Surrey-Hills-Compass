@@ -1,28 +1,4 @@
 {
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "surreyhillscompass.vercel.app"
-        }
-      ],
-      "destination": "https://www.surreyhillscompass.com/:path*",
-      "permanent": true
-    },
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.surreyhillscompass.vercel.app"
-        }
-      ],
-      "destination": "https://www.surreyhillscompass.com/:path*",
-      "permanent": true
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",

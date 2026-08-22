@@ -2,6 +2,12 @@
   "redirects": [
     {
       "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "surreyhillscompass.vercel.app"
+        }
+      ],
       "destination": "https://www.surreyhillscompass.com/$1",
       "permanent": true
     }
